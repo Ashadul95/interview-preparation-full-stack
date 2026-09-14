@@ -1,0 +1,3421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Stack Interview Workbook</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+--pwc-orange: #d04a02;
+--pwc-black: #1e1e1e;
+--pwc-dark-gray: #2d2d2d;
+--bg-body: #f4f4f5;
+--bg-card: #ffffff;
+--border: #e4e4e7;
+--text-main: #27272a;
+--text-muted: #52525b;
+--code-bg: #18181b;
+--code-text: #e4e4e7;
+--accent-blue: #0284c7;
+}
+
+/* Base Mobile-First Reset */
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+font-family: 'Inter', sans-serif;
+background-color: var(--bg-body);
+color: var(--text-main);
+line-height: 1.6;
+padding-top: 70px; /* Offset for fixed header */
+}
+
+/* FIXED NAV HEADER (Mobile-First) */
+.fixed-header {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 60px;
+background-color: var(--pwc-black);
+color: white;
+z-index: 1000;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+display: flex;
+align-items: center;
+}
+
+.nav-container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.brand-title {
+font-weight: 800;
+font-size: 1.05rem;
+color: #ffffff;
+letter-spacing: -0.5px;
+}
+
+.brand-title span {
+color: var(--pwc-orange);
+}
+
+.nav-menus {
+display: flex;
+gap: 10px;
+}
+
+/* Dropdown Styling */
+.dropdown {
+position: relative;
+}
+
+.dropbtn {
+background-color: #27272a;
+color: #ffffff;
+border: 1px solid #3f3f46;
+padding: 6px 12px;
+font-size: 0.85rem;
+font-weight: 600;
+border-radius: 6px;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+.dropbtn:hover {
+background-color: var(--pwc-orange);
+border-color: var(--pwc-orange);
+}
+
+.dropdown-content {
+display: none;
+position: absolute;
+right: 0;
+top: 100%;
+margin-top: 5px;
+background-color: #ffffff;
+min-width: 180px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+border-radius: 8px;
+overflow: hidden;
+border: 1px solid var(--border);
+z-index: 1001;
+}
+
+.dropdown-content a {
+color: var(--text-main);
+padding: 10px 14px;
+text-decoration: none;
+display: block;
+font-size: 0.85rem;
+font-weight: 500;
+border-bottom: 1px solid var(--border);
+}
+
+.dropdown-content a:last-child {
+border-bottom: none;
+}
+
+.dropdown-content a:hover {
+background-color: #f4f4f5;
+color: var(--pwc-orange);
+}
+
+.dropdown:hover .dropdown-content {
+display: block;
+}
+
+/* Container Layout */
+.container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 15px;
+}
+
+/* Header Card */
+.header {
+background: linear-gradient(135deg, var(--pwc-black) 0%, var(--pwc-dark-gray) 100%);
+color: white;
+padding: 25px 20px;
+border-radius: 12px;
+border-left: 6px solid var(--pwc-orange);
+margin-bottom: 25px;
+}
+
+.header h1 {
+font-size: 1.5rem;
+margin-bottom: 10px;
+font-weight: 800;
+}
+
+.header p {
+font-size: 0.9rem;
+color: #d4d4d8;
+}
+
+/* Roadmap Table (Responsive) */
+.table-responsive {
+overflow-x: auto;
+margin-bottom: 25px;
+background: var(--bg-card);
+border-radius: 8px;
+border: 1px solid var(--border);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.85rem;
+}
+
+th {
+background-color: var(--pwc-black);
+color: white;
+padding: 12px 15px;
+text-align: left;
+}
+
+td {
+padding: 12px 15px;
+border-bottom: 1px solid var(--border);
+}
+
+/* Day Sections */
+.day-section {
+background: var(--bg-card);
+border-radius: 12px;
+padding: 20px 15px;
+margin-bottom: 30px;
+border: 1px solid var(--border);
+scroll-margin-top: 80px; /* Anchor spacing */
+}
+
+.day-title {
+color: var(--pwc-orange);
+font-size: 1.4rem;
+font-weight: 800;
+border-bottom: 2px solid var(--border);
+padding-bottom: 10px;
+margin-bottom: 20px;
+scroll-margin-top: 80px;
+}
+
+.checklist {
+background: #fff7ed;
+border-left: 4px solid var(--pwc-orange);
+padding: 15px;
+border-radius: 0 8px 8px 0;
+margin-bottom: 20px;
+font-size: 0.85rem;
+}
+
+.checklist ul {
+padding-left: 20px;
+margin-top: 5px;
+}
+
+/* Question Cards */
+.q-card {
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 18px;
+margin-bottom: 20px;
+background: #ffffff;
+}
+
+.q-title {
+font-size: 1.05rem;
+font-weight: 700;
+color: var(--pwc-black);
+margin-bottom: 10px;
+display: flex;
+gap: 8px;
+}
+
+.q-title::before {
+content: "Q.";
+color: var(--pwc-orange);
+}
+
+.q-answer {
+color: var(--text-muted);
+font-size: 0.9rem;
+margin-bottom: 12px;
+}
+
+.enhancement {
+background: #f0f9ff;
+border-left: 4px solid var(--accent-blue);
+padding: 12px;
+border-radius: 4px;
+font-size: 0.85rem;
+margin-bottom: 12px;
+}
+
+.deep-answer {
+background: linear-gradient(135deg, #f8fbff, #eef8f5);
+border: 1px solid rgba(8,127,140,.18);
+border-left: 4px solid var(--teal, #087f8c);
+border-radius: 12px;
+padding: 14px;
+margin: 12px 0;
+color: var(--muted, #5d687a);
+font-size: .88rem;
+}
+.deep-answer, .enhancement { display: none; }
+.deep-answer.detail-open, .enhancement.detail-open { display: block; }
+.detail-toggle { display: block; width: 100%; margin: 10px 0 0; padding: 9px 12px; border: 1px solid rgba(8,127,140,.2); border-radius: 10px; background: #f4fbfa; color: var(--blue, #1f5f9f); font: 700 .8rem Georgia, serif; text-align: left; cursor: pointer; }
+.detail-toggle::before { content: '+'; display: inline-block; width: 1.2em; color: var(--coral, #f47b4b); font-size: 1.05rem; }
+.detail-toggle.detail-open { background: #e8f5f2; }
+.detail-toggle.detail-open::before { content: '-'; }
+.deep-answer strong { color: var(--ink, #172033); }
+.deep-answer h4 { color: var(--blue, #1f5f9f); font-family: Georgia, serif; margin-bottom: 8px; font-size: 1rem; }
+.deep-answer ul { padding-left: 20px; display: grid; gap: 6px; }
+.deep-answer li::marker { color: var(--coral, #f47b4b); }
+.enhancement strong {
+color: var(--accent-blue);
+}
+
+/* FULL HEIGHT CODE BLOCKS (Mobile-First) */
+pre {
+background: var(--code-bg);
+color: var(--code-text);
+padding: 14px;
+border-radius: 6px;
+font-family: 'Fira Code', monospace;
+font-size: 0.82rem;
+margin: 0;
+white-space: pre-wrap; /* Wraps long lines on mobile */
+word-break: break-word; /* Prevents overflow breaking layout */
+overflow-x: visible; /* Eliminates horizontal scrollbar */
+overflow-y: visible; /* Eliminates vertical scrollbar */
+height: auto !important; /* Forces full-height expansion */
+max-height: none !important; /* Overrides any truncation limits */
+}
+
+code {
+font-family: 'Fira Code', monospace;
+background-color: #f1f1f5;
+padding: 2px 5px;
+border-radius: 4px;
+color: #c7254e;
+font-size: 0.85rem;
+}
+
+pre code {
+background-color: transparent;
+color: inherit;
+padding: 0;
+}
+
+.framework-box {
+background: var(--pwc-black);
+color: white;
+padding: 20px;
+border-radius: 12px;
+margin-bottom: 30px;
+}
+
+.framework-box h3 {
+color: var(--pwc-orange);
+margin-bottom: 10px;
+}
+
+/* Tablet & Desktop Enhancements */
+@media (min-width: 768px) {
+body {
+padding-top: 80px;
+}
+
+/* Workbook upgrade layer: kept at the end so it also repairs the original
+	exported stylesheet where malformed comments swallowed nearby rules. */
+:root {
+--ink: #172033;
+--muted: #5d687a;
+--paper: #fffdf9;
+--line: #e8e3dc;
+--orange: #d04a02;
+--coral: #f47b4b;
+--teal: #087f8c;
+--blue: #1f5f9f;
+--shadow: 0 18px 45px rgba(29, 34, 45, 0.10);
+}
+
+body {
+font-family: Georgia, 'Times New Roman', serif;
+background:
+radial-gradient(circle at 8% 4%, rgba(244,123,75,.14), transparent 28rem),
+linear-gradient(180deg, #f8f4ee 0%, #eef4f4 100%);
+color: var(--ink);
+padding-top: 76px;
+}
+
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+pointer-events: none;
+opacity: .35;
+background-image: linear-gradient(rgba(23,32,51,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(23,32,51,.025) 1px, transparent 1px);
+background-size: 28px 28px;
+z-index: -1;
+}
+
+.fixed-header {
+height: 68px;
+background: rgba(23, 32, 51, .94);
+backdrop-filter: blur(18px);
+border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.nav-container { padding: 0 14px; gap: 10px; }
+.brand-title { display: flex; align-items: center; gap: 8px; font-family: Georgia, serif; letter-spacing: 0; white-space: nowrap; }
+.brand-mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.35); border-radius: 10px; background: linear-gradient(135deg, #ff9b6b, #087f8c); color: #172033 !important; font: 900 .72rem Inter, sans-serif; box-shadow: 0 0 0 4px rgba(244,123,75,.1); animation: logoPulse 3s ease-in-out infinite; }
+.brand-copy { color: #fff; }
+.brand-copy b { color: #ffb38d; }
+.header-search { flex: 1; max-width: 330px; }
+.header-search input { width: 100%; min-width: 0; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(255,255,255,.1); color: #fff; padding: 8px 12px; font: inherit; font-size: .78rem; outline: none; }
+.header-search input::placeholder { color: rgba(255,255,255,.72); }
+.header-search input:focus { border-color: #ff9b6b; box-shadow: 0 0 0 3px rgba(255,155,107,.18); }
+.menu-toggle { display: none; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); color: #fff; border-radius: 10px; min-width: 40px; min-height: 38px; font-size: 1.2rem; cursor: pointer; }
+.nav-menus { gap: 6px; }
+.dropbtn, .tool-button {
+font-family: inherit;
+border: 1px solid rgba(255,255,255,.18);
+background: rgba(255,255,255,.08);
+color: #fff;
+border-radius: 999px;
+padding: 7px 10px;
+font-size: .76rem;
+cursor: pointer;
+}
+.dropbtn:hover, .tool-button:hover { background: var(--orange); border-color: var(--orange); }
+.dropdown-content { top: calc(100% + 7px); max-height: 70vh; overflow-y: auto; }
+.dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content { display: block; }
+
+.container { max-width: 1180px; padding: 16px 12px 60px; }
+.header {
+position: relative;
+overflow: hidden;
+background: linear-gradient(135deg, #172033 0%, #243a4b 58%, #087f8c 140%);
+border: 0;
+border-left: 5px solid var(--coral);
+border-radius: 24px;
+box-shadow: var(--shadow);
+padding: 28px 20px;
+animation: rise .7s ease both;
+}
+.header::after { content: 'MEAN / MERN'; position: absolute; right: -16px; bottom: -22px; color: rgba(255,255,255,.07); font: 800 5rem Georgia, serif; transform: rotate(-12deg); }
+.header::before { content: ''; position: absolute; top: -80px; left: -30%; width: 55%; height: 220%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.09), transparent); transform: rotate(18deg); animation: headerSheen 8s ease-in-out infinite; }
+.header h1, .header p { position: relative; z-index: 1; }
+.header h1 { font-family: Georgia, serif; font-size: clamp(1.65rem, 7vw, 3.3rem); line-height: 1.04; }
+.header p { color: #e8eff3; }
+.table-responsive { border: 0; border-radius: 18px; box-shadow: var(--shadow); background: rgba(255,255,255,.8); }
+table { font-family: inherit; }
+th { background: var(--ink); }
+.day-section {
+background: rgba(255,253,249,.86);
+border: 1px solid rgba(232,227,220,.95);
+border-radius: 22px;
+padding: 18px 12px;
+margin-bottom: 28px;
+box-shadow: var(--shadow);
+scroll-margin-top: 84px;
+}
+.day-title { color: var(--blue); border-bottom-color: var(--line); font-family: Georgia, serif; line-height: 1.14; }
+.checklist { background: #fff5e9; border-left-color: var(--coral); border-radius: 0 14px 14px 0; }
+.q-card {
+border: 1px solid var(--line);
+border-radius: 16px;
+padding: 16px;
+background: rgba(255,255,255,.92);
+box-shadow: 0 8px 22px rgba(29,34,45,.045);
+animation: reveal .65s ease both;
+}
+.q-title { font-family: Georgia, serif; color: var(--ink); line-height: 1.25; }
+.q-title::before { color: var(--orange); }
+.q-answer { color: var(--muted); }
+.enhancement { background: #edf8f6; border-left-color: var(--teal); }
+.enhancement strong { color: var(--teal); }
+pre {
+background: #172033;
+color: #eff7f5;
+font-size: .8rem;
+line-height: 1.55;
+white-space: pre-wrap;
+overflow-wrap: anywhere;
+word-break: normal;
+border: 1px solid rgba(255,255,255,.08);
+box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+pre code { color: inherit; font-size: inherit; }
+.framework-box { background: linear-gradient(135deg, #172033, #087f8c); border-radius: 22px; box-shadow: var(--shadow); }
+.study-toolbar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; padding: 12px; border: 1px solid rgba(232,227,220,.95); border-radius: 16px; background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(237,248,246,.82)); box-shadow: 0 10px 26px rgba(29,34,45,.06); }
+.study-toolbar .tool-button { color: var(--ink); background: rgba(255,255,255,.8); border-color: var(--line); }
+.study-toolbar .tool-button { min-height: 42px; border-radius: 12px; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.study-toolbar .tool-button:hover, .study-toolbar .tool-button:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(29,34,45,.12); }
+.study-toolbar .tool-button.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+.flow-diagram { display: grid; gap: 8px; margin: 14px 0 18px; }
+.flow-step { padding: 12px; border: 1px solid rgba(8,127,140,.22); border-radius: 12px; background: linear-gradient(90deg,#eff9f7,#fff); text-align: center; font-weight: 700; }
+.flow-step:not(:last-child)::after { content: '↓'; display: block; color: var(--coral); margin: 5px -12px -26px; position: relative; z-index: 1; }
+.progress-wrap { margin: 10px 0 18px; background: rgba(255,255,255,.75); border: 1px solid var(--line); padding: 10px 12px; border-radius: 12px; }
+.progress-track { height: 8px; background: #e8e3dc; border-radius: 20px; overflow: hidden; }
+.progress-bar { display: block; height: 100%; width: 0; background: linear-gradient(90deg,var(--orange),var(--teal)); transition: width .3s ease; }
+.scroll-top { position: fixed; right: 18px; bottom: 18px; z-index: 1100; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--orange); color: #fff; box-shadow: 0 10px 24px rgba(23,32,51,.25); font-size: 1.35rem; cursor: pointer; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s ease, transform .25s ease, background .2s ease; }
+.scroll-top.visible { opacity: 1; transform: none; pointer-events: auto; }
+.scroll-top:hover, .scroll-top:focus-visible { background: var(--teal); outline: 3px solid rgba(8,127,140,.25); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.q-title { cursor: pointer; }
+.priority-badge { margin-left: auto; padding: 3px 7px; border-radius: 999px; font: 700 .65rem Inter, sans-serif; white-space: nowrap; text-transform: uppercase; letter-spacing: .03em; }
+.priority-high { background: #ffe3dc; color: #a62b14; }
+.priority-medium { background: #fff1c7; color: #805b00; }
+.priority-low { background: #e3eef8; color: #245b86; }
+.q-card.collapsed .q-answer, .q-card.collapsed .deep-answer, .q-card.collapsed pre, .q-card.collapsed .enhancement, .q-card.collapsed .flow-diagram { display: none; }
+.q-card.answer-expanded .q-answer, .q-card.answer-expanded .deep-answer, .q-card.answer-expanded pre, .q-card.answer-expanded .enhancement { display: block; }
+.q-card.search-hidden, .day-section.search-hidden { display: none; }
+.search-empty { display: none; margin: 0 0 18px; padding: 14px; border: 1px dashed var(--coral); border-radius: 14px; background: #fff5e9; color: var(--muted); }
+.search-empty.visible { display: block; }
+.filter-panel { display: grid; grid-template-columns: 1.2fr 1fr 1fr auto; gap: 10px; align-items: end; margin: 0 0 18px; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.78); box-shadow: 0 10px 24px rgba(29,34,45,.05); }
+.filter-field { display: grid; gap: 5px; color: var(--muted); font: 700 .75rem Inter, sans-serif; }
+.filter-field select { min-height: 40px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; }
+.filter-count { align-self: center; color: var(--teal); font: 700 .78rem Inter, sans-serif; white-space: nowrap; }
+.focus-mode .q-card:not(:focus-within) { opacity: .32; transition: opacity .2s ease; }
+.focus-mode .q-card:hover, .focus-mode .q-card:focus-within { opacity: 1; }
+.detail-toggle + .deep-answer, .detail-toggle + .enhancement { margin-top: 8px; }
+@media print {
+body { background: #fff; padding-top: 0; }
+body::before, .fixed-header, .study-toolbar, .progress-wrap, .scroll-top { display: none !important; }
+.container { max-width: none; padding: 0; }
+.header, .day-section, .framework-box { box-shadow: none; break-inside: avoid; }
+.day-section { border: 0; padding: 10px 0; }
+pre { white-space: pre-wrap !important; color: #111; background: #f3f3f3; border: 1px solid #ddd; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes logoPulse { 0%, 100% { transform: translateY(0); box-shadow: 0 0 0 4px rgba(244,123,75,.1); } 50% { transform: translateY(-2px); box-shadow: 0 0 0 7px rgba(8,127,140,.08); } }
+@keyframes headerSheen { 0%, 55% { left: -45%; opacity: 0; } 65% { opacity: 1; } 80%, 100% { left: 125%; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media (min-width: 768px) {
+body { padding-top: 84px; }
+.nav-container { padding: 0 30px; }
+.container { padding: 24px 30px 80px; }
+.day-section { padding: 34px; }
+.q-card { padding: 22px; }
+pre { font-size: .88rem; white-space: pre-wrap; }
+.flow-diagram { grid-template-columns: repeat(4, 1fr); align-items: center; }
+.flow-step:not(:last-child)::after { content: '→'; display: inline; margin: 0 -20px 0 10px; }
+}
+@media (max-width: 700px) {
+	.fixed-header { height: auto; min-height: 82px; background: linear-gradient(135deg, rgba(23,32,51,.98), rgba(8,127,140,.96)); }
+	body { padding-top: 96px; }
+	.nav-container { flex-wrap: wrap; padding: 9px 12px; }
+	.header-search { order: 3; flex-basis: 100%; max-width: none; }
+	.menu-toggle { display: block; order: 2; margin-left: auto; }
+	.nav-menus { display: none; position: absolute; top: 100%; left: 10px; right: 10px; margin: 0; padding: 10px; background: rgba(23,32,51,.98); border: 1px solid rgba(255,255,255,.15); border-radius: 16px; box-shadow: 0 18px 35px rgba(0,0,0,.25); }
+	.fixed-header.menu-open .nav-menus { display: grid; gap: 8px; }
+	.fixed-header.menu-open .dropdown { display: block; }
+	.fixed-header.menu-open .dropbtn { width: 100%; text-align: left; }
+	.fixed-header.menu-open .dropdown-content { position: static; display: block; max-height: none; margin: 5px 0 0; box-shadow: none; border-color: rgba(23,32,51,.15); }
+	.fixed-header.menu-open .dropdown-content a { padding: 9px 12px; }
+	.brand-title { font-size: .94rem; }
+	.brand-mark { width: 36px; height: 36px; }
+	.header-search input { min-height: 40px; background: rgba(255,255,255,.14); }
+	.study-toolbar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 4px; padding: 10px; }
+	.study-toolbar .tool-button { min-height: 44px; font-size: .78rem; }
+	.filter-panel { grid-template-columns: 1fr 1fr; gap: 8px; }
+	.filter-field:first-child { grid-column: 1 / -1; }
+	.filter-count { grid-column: 1 / -1; }
+	.header { padding: 24px 16px; border-radius: 20px; }
+	.header h1 { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+	.header p { font-size: .86rem; }
+	.progress-wrap { padding: 12px; }
+	.scroll-top { right: 14px; bottom: 14px; width: 48px; height: 48px; }
+}
+
+.fixed-header {
+height: 70px;
+}
+
+.nav-container {
+padding: 0 30px;
+}
+
+.brand-title {
+font-size: 1.25rem;
+}
+
+.dropbtn {
+padding: 8px 16px;
+font-size: 0.9rem;
+}
+
+.container {
+padding: 30px;
+}
+
+.header {
+padding: 35px 30px;
+}
+
+.header h1 {
+font-size: 2.1rem;
+}
+
+.day-section {
+padding: 35px;
+}
+
+.day-title {
+font-size: 1.75rem;
+}
+
+.checklist ul {
+columns: 2;
+}
+
+.q-card {
+padding: 25px;
+}
+
+.q-title {
+font-size: 1.2rem;
+}
+
+.q-answer, .enhancement {
+font-size: 0.95rem;
+}
+
+pre {
+font-size: 0.9rem;
+white-space: pre-wrap; /* Keep every line visible on small screens */
+overflow-x: visible;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- FIXED MOBILE-FIRST NAV HEADER -->
+<header class="fixed-header">
+<div class="nav-container">
+<div class="brand-title"><span class="brand-mark">FS</span><span class="brand-copy">Full Stack <b>Interview</b></span></div>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Open workbook menu" aria-expanded="false">☰</button>
+<label class="header-search">
+<span class="sr-only">Search workbook</span>
+<input id="questionSearch" type="search" placeholder="Search topics or questions" autocomplete="off">
+</label>
+<div class="nav-menus">
+<!-- Days Menu -->
+<div class="dropdown">
+<button class="dropbtn">Days ▾</button>
+<div class="dropdown-content">
+<a href="#day1">Day 1: JS + Node + REST</a>
+<a href="#day2">Day 2: Angular 18+ + RxJS</a>
+<a href="#day3">Day 3: Mongo + Redis + Microservices</a>
+<a href="#day4">Day 4: DSA + Azure + Mock</a>
+</div>
+</div>
+<!-- Topics Menu -->
+<div class="dropdown">
+<button class="dropbtn">Topics ▾</button>
+<div class="dropdown-content">
+<a href="#topic-js">JavaScript Core</a>
+<a href="#topic-node">Node.js / Express</a>
+<a href="#topic-node-production">Node Production + Rate Limiting</a>
+<a href="#topic-advanced-js">Advanced Async Patterns</a>
+<a href="#topic-angular">Angular 18+ & Signals</a>
+<a href="#topic-angular-deep">Angular Senior Deep Dive</a>
+<a href="#topic-react">React + Hooks + Performance</a>
+<a href="#topic-mongo">MongoDB & Indexes</a>
+<a href="#topic-micro">Microservices & Kafka</a>
+<a href="#topic-dsa">DSA Drills</a>
+<a href="#topic-azure">Azure & CI/CD</a>
+<a href="#topic-scenarios">Production Scenarios</a>
+<a href="#topic-mern">MERN Bridge: React + TypeScript</a>
+<a href="#mean-track">Complete MEAN Track</a>
+<a href="#mern-track">Complete MERN Track</a>
+<a href="#topic-cloud">Azure + AWS + DevOps</a>
+<a href="#topic-aws">AWS Services + Server Operations</a>
+<a href="#topic-dsa-extra">DSA Patterns + Dry Runs</a>
+<a href="#topic-quality">Testing + Quality</a>
+<a href="#topic-html-css">HTML5 + CSS3 Fundamentals</a>
+<a href="#topic-jd-gaps">JD Gap Coverage + Tools</a>
+<a href="#topic-fullstack-essentials">Full-Stack Essentials: GraphQL + SQL + Security</a>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<div class="container">
+<!-- HEADER OVERVIEW -->
+<div class="header">
+<h1>Full Stack Interview Workbook</h1>
+<p><strong>COMPLETE: 4 Days × 2 Hours • 5–7 Years • Angular 18+ • Node.js • Express • MongoDB • Redis • Microservices • DSA • Azure DevOps</strong>span_2span_2</p>
+<p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.9;">Speaking + coding workbook: master the answer, explain it aloud, and reproduce full architecture/codespan_3span_3.</p>
+</div>
+
+<div class="study-toolbar" aria-label="Workbook controls">
+<button class="tool-button" id="focusMode" type="button">Focus mode</button>
+<button class="tool-button" id="expandCode" type="button">Expand answers</button>
+<button class="tool-button" id="printWorkbook" type="button">Print / save PDF</button>
+<button class="tool-button" id="topButton" type="button">Back to top</button>
+</div>
+<div class="progress-wrap" aria-label="Reading progress">
+<div style="display:flex;justify-content:space-between;gap:8px;font-size:.8rem;margin-bottom:6px"><strong>Study progress</strong><span id="progressText">0% explored</span></div>
+<div class="progress-track"><span class="progress-bar" id="progressBar"></span></div>
+</div>
+<div id="searchEmpty" class="search-empty" role="status">No matching questions. Try <strong>Angular</strong>, <strong>MongoDB</strong>, <strong>Kafka</strong>, <strong>React</strong>, <strong>AWS</strong>, or <strong>system design</strong>.</div>
+<div class="filter-panel" aria-label="Question filters">
+<label class="filter-field">Track
+<select id="trackFilter">
+<option value="all">All full-stack questions</option>
+<option value="fullstack">Full Stack essentials</option>
+<option value="mean">MEAN Stack</option>
+<option value="mern">MERN Stack</option>
+</select>
+</label>
+<label class="filter-field">Priority
+<select id="priorityFilter">
+<option value="all">All priorities</option>
+<option value="high">High priority</option>
+<option value="medium">Medium priority</option>
+<option value="low">Low priority</option>
+</select>
+</label>
+<label class="filter-field">Subject
+<select id="subjectFilter">
+<option value="all">All subjects</option>
+<option value="frontend">Frontend</option>
+<option value="backend">Backend</option>
+<option value="data">Database / cache</option>
+<option value="cloud">Cloud / DevOps</option>
+<option value="dsa">DSA</option>
+<option value="security">Security</option>
+</select>
+</label>
+<span class="filter-count" id="filterCount" aria-live="polite">All questions</span>
+</div>
+
+<!-- 4-DAY ROADMAP TABLE -->
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>DAY</th>
+<th>FOCUS</th>
+<th>TARGET</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>JavaScript + Node/Express + REST/Securityspan_4span_4</td>
+<td>Core backend + codingspan_5span_5</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Angular 18+ + RxJS + Signals + Formsspan_6span_6</td>
+<td>Frontend + reactive patternsspan_7span_7</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>MongoDB + Redis/Auth + Microservicesspan_8span_8</td>
+<td>Data + distributed systemsspan_9span_9</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>DSA + Azure/CI-CD + Scenarios + Mockspan_10span_10</td>
+<td>Interview executionspan_11span_11</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- DAY 1 SECTION -->
+<section id="day1" class="day-section">
+<h2 class="day-title">DAY 1 — JavaScript + Node.js + Express + REST + Security</h2>
+
+<div class="checklist">
+<strong>Day 1 Checklist:</strong>
+<ul>
+<li>ES6 scope/hoisting/TDZ/closure/this/prototypesspan_12span_12</li>
+<li>destructuring/spread/rest/map/filter/reducespan_13span_13</li>
+<li>Promise/async-await/all/allSettledspan_14span_14</li>
+<li>event loop/microtasks/macrotasks/libuvspan_15span_15</li>
+<li>modules/EventEmitter/streams/buffersspan_16span_16</li>
+<li>Express middleware/routing/validation/errorsspan_17span_17</li>
+<li>REST/status codes/paginationspan_18span_18</li>
+<li>JWT/CORS/XSS/rate limiting/password hashingspan_19span_19</li>
+</ul>
+</div>
+
+<div id="topic-js" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">var vs let vs const?</h3>
+<div class="q-answer">
+<code>var</code> is function-scoped and can be redeclaredspan_20span_20. <code>let</code>/<code>const</code> are block-scoped and have a temporal dead zone before initializationspan_21span_21. <code>const</code> prevents reassignment, but referenced objects can mutatespan_22span_22.
+</div>
+<div class="enhancement">
+<strong>Senior Insight:</strong> In production enterprise apps, <code>var</code> is strictly forbidden via linters. The Temporal Dead Zone (TDZ) occurs between entering scope and variable declaration where accessing the variable throws a <code>ReferenceError</code>.
+</div>
+<pre><code>if(true){let a=1;const b=2;} // a,b unavailable outsidespan_23span_23</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is hoisting?</h3>
+<div class="q-answer">
+Declarations are processed before executionspan_24span_24. <code>var</code> is initialized to <code>undefined</code>; <code>let</code>/<code>const</code>/<code>class</code> are not usable before initializationspan_25span_25.
+</div>
+<pre><code>console.log(x); // undefinedspan_26span_26
+var x=10;span_27span_27
+// console.log(y); // ReferenceErrorspan_28span_28
+let y=20;span_29span_29</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is a closure?</h3>
+<div class="q-answer">
+A function retains access to variables from its lexical outer scope after the outer function returnsspan_30span_30. Useful for private state and factoriesspan_31span_31.
+</div>
+<div class="enhancement">
+<strong>Senior Insight:</strong> Closures keep references to variables in memory. Be careful attaching long-lived closures to event emitters as they can cause V8 heap memory leaks.
+</div>
+<pre><code>function counter(){let n=0;return()=>++n;}span_32span_32
+const next=counter(); next(); //1; next(); //2span_33span_33</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is lexical scope?</h3>
+<div class="q-answer">
+Variable lookup depends on where code is written, not where the function is calledspan_34span_34.
+</div>
+<pre><code>const x="outer"; function f(){return x;}span_35span_35</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Explain this.</h3>
+<div class="q-answer">
+For normal functions, <code>this</code> depends on the call sitespan_36span_36. Arrow functions capture <code>this</code> lexicallyspan_37span_37. <code>bind</code>/<code>call</code>/<code>apply</code> can control <code>this</code> for normal functionsspan_38span_38.
+</div>
+<pre><code>const u={name:"A",hi(){return this.name}};span_39span_39
+u.hi(); // Aspan_40span_40
+const h=u.hi.bind(u); h(); // Aspan_41span_41</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is prototypal inheritance?</h3>
+<div class="q-answer">
+Objects delegate property lookup through a prototype chainspan_42span_42. JavaScript classes are built on prototypesspan_43span_43.
+</div>
+<pre><code>const animal={speak(){return "sound"}};span_44span_44
+const dog=Object.create(animal); dog.speak();span_45span_45</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">map/filter/reduce?</h3>
+<div class="q-answer">
+<code>map</code> transforms; <code>filter</code> selects; <code>reduce</code> accumulatesspan_46span_46.
+</div>
+<pre><code>[1,2,3].map(x=>x*2);span_47span_47
+[1,2,3].filter(x=>x>1);span_48span_48
+[1,2,3].reduce((s,x)=>s+x,0);span_49span_49</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Spread vs rest?</h3>
+<div class="q-answer">
+Spread expands values; rest collects remaining valuesspan_50span_50.
+</div>
+<pre><code>const b=[...a,3];span_51span_51
+function sum(...nums){return nums.reduce((a,b)=>a+b,0)}span_52span_52</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is destructuring?</h3>
+<div class="q-answer">
+It extracts object properties or array values into variablesspan_53span_53.
+</div>
+<pre><code>const {name,age}=user;span_54span_54
+const [first,second]=items;span_55span_55</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Shallow vs deep copy?</h3>
+<div class="q-answer">
+Shallow copies top-level values but nested references are sharedspan_56span_56. Deep copy separates nested data using a suitable cloning strategyspan_57span_57.
+</div>
+<div class="enhancement">
+<strong>Senior Insight:</strong> Use modern native <code>structuredClone(obj)</code> instead of legacy <code>JSON.parse(JSON.stringify(obj))</code> which loses functions, symbols, and dates.
+</div>
+<pre><code>const a={n:{x:1}}; const b={...a};span_58span_58
+b.n.x=9; // a.n.x also changesspan_59span_59</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Promise vs async/await?</h3>
+<div class="q-answer">
+Promise is the asynchronous abstraction; <code>async/await</code> is syntax for consuming Promises more readably and does not block the event loopspan_60span_60.
+</div>
+<pre><code>async function load(){try{return await api()}catch(e){throw e}}span_61span_61</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Promise.all vs allSettled?</h3>
+<div class="q-answer">
+<code>all</code> rejects when one rejectsspan_62span_62. <code>allSettled</code> waits for every operation and returns each outcomespan_63span_63.
+</div>
+<pre><code>await Promise.all([a(),b()]);span_64span_64
+await Promise.allSettled([a(),b()]);span_65span_65</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Debounce vs throttle?</h3>
+<div class="q-answer">
+Debounce waits until calls stop; throttle limits frequencyspan_66span_66. Search commonly uses debounce; scroll/resize often uses throttlespan_67span_67.
+</div>
+<pre><code>search$`.pipe(debounceTime(300))span_68span_68</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is immutability?</h3>
+<div class="q-answer">
+Avoiding direct mutation makes state changes predictable and works well with reactive state/change detectionspan_69span_69.
+</div>
+<pre><code>const next={...state,count:state.count+1};span_70span_70</code></pre>
+</div>
+
+<div id="topic-node" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">Why Node.js for I/O-heavy applications?</h3>
+<div class="q-answer">
+Its event-driven non-blocking I/O model lets the JS thread handle other work while I/O waitsspan_71span_71. CPU-heavy work may need workers/processesspan_72span_72.
+</div>
+<pre><code>const data=await fs.promises.readFile("file.txt","utf8");span_73span_73</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is libuv?</h3>
+<div class="q-answer">
+A Node dependency providing the event loop and asynchronous I/O abstractions, including a worker pool for selected operationsspan_74span_74.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is the event loop?</h3>
+<div class="q-answer">
+It coordinates the call stack with asynchronous callbacks so Node can continue processing instead of blocking on I/Ospan_75span_75.
+</div>
+<pre><code>console.log("A");span_76span_76
+setTimeout(()=>console.log("timer"),0);span_77span_77
+Promise.resolve().then(()=>console.log("micro"));span_78span_78
+console.log("B");span_79span_79</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is Express middleware?</h3>
+<div class="q-answer">
+A request-pipeline function that can inspect/modify <code>req/res</code>, end the response or call <code>next()</code>span_80span_80.
+</div>
+<pre><code>app.use((req,res,next)=>{console.log(req.method); next();});span_81span_81</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How implement centralized errors?</h3>
+<div class="q-answer">
+Handlers pass errors to <code>next(error)</code>; final middleware maps known errors to safe responses and logs unexpected failuresspan_82span_82.
+</div>
+<pre><code>app.use((err,req,res,next)=>{span_83span_83
+console.error(err);span_84span_84
+res.status(err.statusCode||500).json({message:"Request failed"});span_85span_85
+});span_86span_86</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How validate API input?</h3>
+<div class="q-answer">
+Validate body/query/params against a schema before business logic and return consistent 4xx errorsspan_87span_87.
+</div>
+<pre><code>const data=schema.parse(req.body);span_88span_88</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">PUT vs PATCH?</h3>
+<div class="q-answer">
+<code>PUT</code> generally replaces a resource representation; <code>PATCH</code> applies partial changesspan_89span_89.
+</div>
+<pre><code>PUT /users/42span_90span_90
+PATCH /users/42span_91span_91</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">401 vs 403?</h3>
+<div class="q-answer">
+401 means authentication is missing/invalid; 403 means authenticated but not permittedspan_92span_92.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is CORS?</h3>
+<div class="q-answer">
+A browser security mechanism controlling cross-origin requestsspan_93span_93. Configure trusted origins, methods and headers explicitlyspan_94span_94.
+</div>
+<pre><code>app.use(cors({origin:["https://app.example.com"]}));span_95span_95</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How paginate an API?</h3>
+<div class="q-answer">
+Offset/limit is simple; cursor/keyset pagination scales better for large/changing data when backed by a stable indexspan_96span_96.
+</div>
+<pre><code>db.orders.find({createdAt:{`$lt:cursor}})span_97span_97
+.sort({createdAt:-1}).limit(20)span_98span_98</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is graceful shutdown?</h3>
+<div class="q-answer">
+Stop new traffic, finish/time out active requests, close DB/broker connections and exit cleanlyspan_99span_99.
+</div>
+<pre><code>process.on("SIGTERM", async()=>{span_100span_100
+server.close(); await db.close();span_101span_101
+process.exit(0);span_102span_102
+});span_103span_103</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How avoid blocking Node?</h3>
+<div class="q-answer">
+Avoid synchronous heavy filesystem/crypto/CPU work in request handlersspan_104span_104. Use async APIs, workers or separate servicesspan_105span_105.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What makes an API RESTful?</h3>
+<div class="q-answer">
+Resource-oriented URLs, standard HTTP methods/status codes, stateless requests and representationsspan_106span_106. REST is an architectural stylespan_107span_107.
+</div>
+<pre><code>GET /orders/42span_108span_108
+POST /ordersspan_109span_109
+PATCH /orders/42span_110span_110
+DELETE /orders/42span_111span_111</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How secure an Express API?</h3>
+<div class="q-answer">
+HTTPS, authentication, authorization, validation, secure headers, rate limiting, controlled CORS, password hashing, secret management and safe loggingspan_112span_112.
+</div>
+<pre><code>app.use(helmet());span_113span_113
+app.use(rateLimit({windowMs:60000,max:100}));span_114span_114</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How store passwords?</h3>
+<div class="q-answer">
+Never plaintextspan_115span_115. Use Argon2 or bcrypt with appropriate parameters and unique saltsspan_116span_116.
+</div>
+<pre><code>const hash = await bcrypt.hash(password, 12);span_117span_117
+const ok = await bcrypt.compare(password, hash);span_118span_118</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is XSS?</h3>
+<div class="q-answer">
+Cross-site scripting executes attacker-controlled content in a browserspan_119span_119. Mitigate with output encoding, safe DOM APIs, CSP and careful sanitizationspan_120span_120.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is rate limiting?</h3>
+<div class="q-answer">
+Limit requests per client/key over a time window to reduce abuse and protect resourcesspan_121span_121.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is API idempotency?</h3>
+<div class="q-answer">
+Repeated requests with the same idempotency key should create one intended business effect; critical for payments/ordersspan_122span_122.
+</div>
+<pre><code>POST /paymentsspan_123span_123
+Idempotency-Key: abc-123span_124span_124</code></pre>
+</div>
+</section>
+
+<section id="topic-node-production" class="day-section track-section">
+<h2 class="day-title">NODE PRODUCTION — Rate Limiting, Resilience and Incident Questions</h2>
+<div class="q-card">
+<h3 class="q-title">How do you implement rate limiting in Express?</h3>
+<div class="q-answer">Rate limiting protects an API by counting requests for a chosen identity, such as an authenticated user, API key, or client IP, inside a time window. A single-process in-memory counter is acceptable for a local demo but fails when several Node instances share traffic. In production, use a shared Redis store, return HTTP 429, include a retry hint when useful, and apply stricter limits to login, password reset, search, and payment endpoints than to normal reads.</div>
+<div class="enhancement"><strong>Step by step:</strong> (1) Identify the caller key. (2) Decide the policy, for example 100 general requests per minute and 5 login attempts per 15 minutes. (3) Increment an atomic Redis counter with an expiry. (4) Reject before expensive business logic when the limit is exceeded. (5) Emit metrics for allowed, blocked, and Redis-failure requests. (6) Decide whether a Redis outage should fail closed for login or fail open for low-risk reads.</div>
+<pre><code>import rateLimit from 'express-rate-limit';
+import RedisStore from 'rate-limit-redis';
+import { redis } from './redis.js';
+
+const apiLimiter = rateLimit({
+	windowMs: 60 * 1000,
+	limit: 100,
+	standardHeaders: 'draft-7',
+	legacyHeaders: false,
+	keyGenerator: request => request.user?.id || request.ip,
+	store: new RedisStore({ sendCommand: (...args) => redis.sendCommand(args) }),
+	handler: (request, response) => {
+		response.status(429).json({
+			code: 'RATE_LIMITED',
+			message: 'Too many requests. Try again later.'
+		});
+	}
+});
+
+const loginLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	limit: 5,
+	standardHeaders: 'draft-7'
+});
+
+app.use('/api', apiLimiter);
+app.post('/auth/login', loginLimiter, loginHandler);</code></pre>
+<div class="enhancement"><strong>Interview trade-off:</strong> Fixed windows are simple but allow bursts at a boundary. Sliding-window or token-bucket algorithms smooth traffic better. A distributed limiter must use atomic Redis operations, avoid trusting arbitrary forwarded IP headers, and preserve availability with an explicit cache-failure policy.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is the difference between IP, user, API-key, and endpoint rate limits?</h3>
+<div class="q-answer">An IP limit protects against anonymous floods but can punish many users behind one NAT. A user limit is fairer after authentication. An API-key limit supports partner quotas and billing. An endpoint limit protects expensive operations such as login, exports, search, and report generation. Senior designs usually combine them: a global edge limit, an identity limit, and a route-specific limit.</div>
+<div class="enhancement"><strong>Production scenario:</strong> If one customer reports 429 responses, inspect the effective key, proxy configuration, shared NAT behavior, Redis latency, and endpoint policy before simply raising the limit. Compare p95 latency, blocked requests, and downstream saturation.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you make a Node.js API resilient in production?</h3>
+<div class="q-answer">Set timeouts on every outbound request, validate configuration at startup, use bounded retries only for transient and idempotent operations, add circuit breakers around unhealthy dependencies, limit payload size, avoid synchronous CPU work, use graceful shutdown, and expose readiness separately from liveness. A retry without a timeout or idempotency policy can multiply an outage.</div>
+<pre><code>const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 2500);
+try {
+	const response = await fetch(paymentUrl, { signal: controller.signal });
+	if (!response.ok) throw new Error(`payment:${response.status}`);
+	return await response.json();
+} finally {
+	clearTimeout(timeout);
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Node.js production scenario: memory usage keeps increasing. What do you do?</h3>
+<div class="q-answer"><strong>Investigation:</strong> Confirm the trend with heap usage, garbage-collection pauses, request rate, and container restarts. Capture a heap snapshot and compare retained objects. Check unbounded Maps, module-level arrays, timers, event listeners, streams that are not closed, large request bodies, and closures retained by long-lived objects. Reproduce with a load test, fix ownership and cleanup, then verify the slope after deployment.</div>
+<div class="enhancement"><strong>Do not guess:</strong> Restarting containers may reduce impact temporarily, but it does not fix the leak. Add a memory alarm, heap evidence, a regression test or load test, and a runbook for safe mitigation.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">Node.js production scenario: API latency suddenly increases.</h3>
+<div class="q-answer"><strong>Answer sequence:</strong> Establish whether the increase is global or endpoint-specific. Compare p50 and p95 latency, error rate, CPU, memory, event-loop lag, database query duration, Redis hit rate, outbound dependency latency, and recent releases. Mitigate with rollback, throttling, a feature flag, cache, or queue. Then fix the root cause and add the missing dashboard, alert, benchmark, or regression test.</div>
+</div>
+</section>
+
+<section id="topic-advanced-js" class="day-section track-section">
+<h2 class="day-title">ADVANCED ASYNC PATTERNS — Throttling, Debouncing and Backpressure</h2>
+<div class="q-card">
+<h3 class="q-title">Debounce vs throttle: what is the difference and when do you use each?</h3>
+<div class="q-answer"><strong>Debounce</strong> waits until events stop for a quiet period, so it is ideal for search input, validation, and autosave. <strong>Throttle</strong> allows at most one action during a time window, so it is useful for scroll, resize, mouse movement, telemetry, and rate-controlled UI updates. The decision depends on whether the latest event should win after the burst or whether regular intermediate updates are needed.</div>
+<div class="enhancement"><strong>Production scenario:</strong> A search box should debounce so typing <code>angular</code> does not send seven requests. A scroll listener should throttle so the page can update a progress indicator without running layout work hundreds of times per second. For network search also use cancellation so an older response cannot overwrite a newer result.</div>
+<pre><code>function debounce(callback, delayMs) {
+	let timer;
+	return (...args) =&gt; {
+		clearTimeout(timer);
+		timer = setTimeout(() =&gt; callback(...args), delayMs);
+	};
+}
+
+function throttle(callback, intervalMs) {
+	let lastRun = 0;
+	return (...args) =&gt; {
+		const now = Date.now();
+		if (now - lastRun &gt;= intervalMs) {
+			lastRun = now;
+			callback(...args);
+		}
+	};
+}
+
+input.addEventListener('input', debounce(search, 300));
+window.addEventListener('scroll', throttle(updateProgress, 100));</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you prevent stale search responses?</h3>
+<div class="q-answer">Debouncing reduces requests but does not guarantee ordering. Use an AbortController or <code>switchMap</code> so a new query cancels or ignores the previous request. Also attach a request sequence or query value to the result and update UI state only when it matches the latest active query.</div>
+<pre><code>let activeRequest;
+async function searchLatest(query) {
+	activeRequest?.abort();
+	activeRequest = new AbortController();
+	const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+		signal: activeRequest.signal
+	});
+	return response.json();
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is backpressure in a Node.js service?</h3>
+<div class="q-answer">Backpressure means slowing or buffering a producer when a consumer cannot keep up. Without it, a fast file, socket, queue consumer, or request stream can grow memory usage until the process becomes unhealthy. Node streams expose backpressure through <code>write()</code> returning false and the <code>drain</code> event; queues use visibility, concurrency, rate limits, and bounded retries.</div>
+<pre><code>import { createReadStream, createWriteStream } from 'node:fs';
+import { pipeline } from 'node:stream/promises';
+
+// pipeline propagates errors and respects stream backpressure.
+await pipeline(
+	createReadStream('large-input.csv'),
+	transformCsvStream(),
+	createWriteStream('processed.csv')
+);</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you choose concurrency for workers?</h3>
+<div class="q-answer">Start from the bottleneck and its limits, not an arbitrary number. Measure CPU, memory, downstream connection limits, queue age, processing latency, and error rate. Increase concurrency until throughput improves without causing timeouts or saturation. Bound concurrency per worker, use a dead-letter policy for poison jobs, and make each job idempotent because retries and crashes are normal.</div>
+<pre><code>const worker = new Worker('emails', processEmail, {
+	connection,
+	concurrency: 8,
+	limiter: { max: 100, duration: 1000 }
+});</code></pre>
+</div>
+</section>
+
+<!-- DAY 2 SECTION -->
+<section id="day2" class="day-section">
+<h2 class="day-title">DAY 2 — Angular 18+ + RxJS + Signals + Forms + Routing</h2>
+
+<div class="checklist">
+<strong>Day 2 Checklist:</strong>
+<ul>
+<li>Standalone/component + module architecturespan_125span_125</li>
+<li>DI/servicesspan_126span_126</li>
+<li>signal/computed/effectspan_127span_127</li>
+<li>Observable/Subject/BehaviorSubjectspan_128span_128</li>
+<li>switchMap/mergeMap/concatMap/exhaustMapspan_129span_129</li>
+<li>async pipe/lifecyclespan_130span_130</li>
+<li>Reactive Forms/FormArray/validatorsspan_131span_131</li>
+<li>config-driven formsspan_132span_132</li>
+<li>routing/lazy loading/params/AuthGuardspan_133span_133</li>
+<li>HTTP interceptor/JWTspan_134span_134</li>
+<li>OnPush/change detection/list tracking/performancespan_135span_135</li>
+</ul>
+</div>
+
+<div id="topic-angular" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">What is Angular component architecture?</h3>
+<div class="q-answer">
+Components contain template, styles and logicspan_136span_136. Modern Angular supports standalone components; enterprise applications may still use NgModule/module architecturespan_137span_137.
+</div>
+<pre><code>@Component({selector:"app-user",standalone:true,span_138span_138
+template:&lt;h2&gt;{{name()}}&lt;/h2&gt;})span_139span_139
+export class User {name=signal("Alice");}span_140span_140</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is dependency injection?</h3>
+<div class="q-answer">
+Angular's injector supplies dependencies, improving reuse, testing and separation of concernsspan_141span_141.
+</div>
+<pre><code>constructor(private userService:UserService){}span_142span_142</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What are Signals?</h3>
+<div class="q-answer">
+<code>signal</code> stores writable state; <code>computed</code> derives values; <code>effect</code> reacts for side effectsspan_143span_143.
+</div>
+<div class="enhancement">
+<strong>Senior Insight:</strong> Signals bring fine-grained reactivity to Angular, eliminating Zone.js overhead by updating target DOM nodes directly without full component sub-tree dirty checking.
+</div>
+<pre><code>count=signal(0);span_144span_144
+double=computed(()=>this.count()*2);span_145span_145
+increment(){this.count.update(v=>v+1);}span_146span_146</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Signals vs RxJS?</h3>
+<div class="q-answer">
+Signals suit synchronous state and derived UI valuesspan_147span_147. RxJS suits asynchronous streams, events and complex stream compositionspan_148span_148. They can interoperatespan_149span_149.
+</div>
+<pre><code>results=toSignal(this.api.search(this.query$`),{initialValue:[]});span_150span_150</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Observable vs Promise?</h3>
+<div class="q-answer">
+Promise represents one eventual resultspan_151span_151. Observable can emit multiple values and supports RxJS operators/subscription lifecyclespan_152span_152.
+</div>
+<pre><code>this.http.get("/api/users").subscribe(users=>this.users=users);span_153span_153</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Subject vs BehaviorSubject?</h3>
+<div class="q-answer">
+Subject does not replay current statespan_154span_154. BehaviorSubject requires an initial value and replays the latest valuespan_155span_155.
+</div>
+<pre><code>const state$=new BehaviorSubject({loading:false});[span_156](start_span)[span_156](end_span) state$.next({loading:true});span_157span_157</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">switchMap vs mergeMap?</h3>
+<div class="q-answer">
+<code>switchMap</code> keeps the latest inner stream; <code>mergeMap</code> allows concurrent inner streamsspan_158span_158.
+</div>
+<pre><code>search`$.pipe(debounceTime(300),switchMap(q=>api.search(q)));span_159span_159</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">concatMap vs exhaustMap?</h3>
+<div class="q-answer">
+<code>concatMap</code> queues work sequentiallyspan_160span_160. <code>exhaustMap</code> ignores new emissions while current work runs; useful for submit preventionspan_161span_161.
+</div>
+<pre><code>saveClicks.pipe(concatMap(j=>api.process(j)));span_163span_163</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How prevent RxJS memory leaks?</h3>
+<div class="q-answer">
+Prefer async pipespan_164span_164. For manual subscriptions use lifecycle-aware teardown such as <code>takeUntilDestroyed</code>span_165span_165.
+</div>
+<pre><code>this.api.users$`.pipe(takeUntilDestroyed(this.destroyRef)).subscribe();span_166span_166</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is an HTTP interceptor?</h3>
+<div class="q-answer">
+Central request/response pipeline for auth headers, correlation IDs, loading and common errorsspan_167span_167.
+</div>
+<pre><code>const r=req.clone({setHeaders:{Authorization:Bearer${token}`}});span_168span_168
+return next(r);span_169span_169</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is an AuthGuard?</h3>
+<div class="q-answer">
+A route navigation checkspan_170span_170. It is not a substitute for backend authorizationspan_171span_171.
+</div>
+<pre><code>export const guard=()=>inject(Auth).loggedIn()?true:span_172span_172
+inject(Router).createUrlTree(["/login"]);span_173span_173</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Reactive vs template-driven forms?</h3>
+<div class="q-answer">
+Reactive forms are model-driven and explicit, better for complex/dynamic forms and testingspan_174span_174. Template-driven is simpler for small formsspan_175span_175.
+</div>
+<pre><code>form=new FormGroup({email:new FormControl("",[Validators.required,Validators.email])})span_176span_176</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">setValue vs patchValue?</h3>
+<div class="q-answer">
+<code>setValue</code> expects the full structure; <code>patchValue</code> updates only supplied fieldsspan_177span_177.
+</div>
+<pre><code>form.patchValue({email:"a@x.com"});span_178span_178</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is FormArray?</h3>
+<div class="q-answer">
+A reactive structure for a dynamic list of controls/groupsspan_179span_179.
+</div>
+<pre><code>skills=new FormArray([new FormControl("Angular"), new FormControl("Node")]);span_180span_180</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is a config-driven form?</h3>
+<div class="q-answer">
+Metadata defines fields, types, defaults and validation; a reusable builder/renderer creates the formspan_181span_181.
+</div>
+<pre><code>[{key:"name",type:"text",required:true},span_182span_182
+{key:"age",type:"number"}]span_183span_183</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is lazy loading?</h3>
+<div class="q-answer">
+Load feature code only when needed to reduce initial bundle/startup workspan_184span_184.
+</div>
+<pre><code>{path:"orders",loadComponent:()=>import("./orders").then(m=>m.OrdersComponent)}span_185span_185</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How optimize Angular?</h3>
+<div class="q-answer">
+Lazy load, reduce unnecessary change detection, track lists, avoid duplicate requests, use async pipe/signals, optimize bundles/images and measurespan_186span_186.
+</div>
+<pre><code>changeDetection: ChangeDetectionStrategy.OnPushspan_187span_187</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is role-based UI?</h3>
+<div class="q-answer">
+Show/disable features by role for UX; backend independently enforces authorizationspan_188span_188.
+</div>
+<pre><code>canEdit=computed(()=>auth.roles().includes("ADMIN"))span_189span_189</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is change detection?</h3>
+<div class="q-answer">
+Angular checks whether bindings need updatingspan_190span_190. Performance improves by reducing unnecessary checks and choosing suitable reactive/change-detection patternsspan_191span_191.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Why track/trackBy lists?</h3>
+<div class="q-answer">
+Stable identity lets Angular reuse DOM nodes instead of recreating them unnecessarilyspan_192span_192.
+</div>
+<pre><code>@for(item of items; track item.id){<div>{{item.name}}</div>}span_193span_193</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Day 2 RxJS Drill</h3>
+<pre><code>// Latest search winsspan_194span_194
+search$`.pipe(span_195span_195
+debounceTime(300),span_196span_196
+distinctUntilChanged(),span_197span_197
+switchMap(q=>api.search(q)),span_198span_198
+catchError(()=>of([]))span_199span_199
+)span_200span_200
+
+// Ignore repeated submits until current save completesspan_201span_201
+submit`$.pipe(exhaustMap(()=>api.save()));span_202span_202</code></pre>
+</div>
+</section>
+
+<section id="topic-angular-deep" class="day-section track-section">
+<h2 class="day-title">ANGULAR DEEP DIVE — Senior 18+ Questions and Code</h2>
+<div class="q-card">
+<h3 class="q-title">What is the difference between a Signal and an Observable?</h3>
+<div class="q-answer">A Signal represents current synchronous state and is read by calling it. A computed Signal derives synchronously from other Signals. An Observable represents a stream over time and is better for HTTP, websockets, user events, cancellation, retries, and composition. Use an explicit boundary such as <code>toSignal</code> or <code>toObservable</code> rather than mixing ownership casually.</div>
+<pre><code>readonly query = signal('');
+readonly results = toSignal(
+	this.api.search(toObservable(this.query)),
+	{ initialValue: [] }
+);
+
+readonly resultCount = computed(() =&gt; this.results().length);</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Explain switchMap, mergeMap, concatMap and exhaustMap with use cases.</h3>
+<div class="q-answer"><code>switchMap</code> cancels the previous inner subscription and is ideal for type-ahead search. <code>mergeMap</code> runs inner work concurrently and is useful when every independent request matters. <code>concatMap</code> queues work and preserves order, useful for sequential writes. <code>exhaustMap</code> ignores new values while one is active, useful for preventing double-submit.</div>
+<pre><code>search$.pipe(debounceTime(300), switchMap(query =&gt; api.search(query)));
+files$.pipe(mergeMap(file =&gt; api.upload(file)));
+jobs$.pipe(concatMap(job =&gt; api.process(job)));
+submit$.pipe(exhaustMap(() =&gt; api.save(form.value))); </code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How does Angular change detection affect performance?</h3>
+<div class="q-answer">Angular evaluates bindings to keep the view synchronized with state. Reduce work by using OnPush where appropriate, immutable input updates, Signals for focused dependencies, stable list tracking, lazy-loaded routes, pure pipes, and avoiding expensive methods in templates. Measure with browser profiling instead of assuming OnPush alone solves performance.</div>
+<pre><code>@Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `&lt;ul&gt;
+		@for (order of orders(); track order.id) {
+			&lt;li&gt;{{ order.total }}&lt;/li&gt;
+		}
+	&lt;/ul&gt;`
+})
+export class OrderList {
+	readonly orders = input.required&lt;Order[]&gt;();
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you build a reusable config-driven form?</h3>
+<div class="q-answer">Define a typed field metadata model, create controls from metadata, keep validation rules beside the field definition, render through a component map, and expose a typed submit DTO. Do not execute arbitrary template or component names from an untrusted backend. Add conditional visibility, async validation, server errors, accessibility labels, and deterministic tests.</div>
+<pre><code>const fields = [
+	{ key: 'email', type: 'email', required: true },
+	{ key: 'role', type: 'select', options: ['USER', 'ADMIN'] }
+] as const;
+
+const form = new FormGroup({
+	email: new FormControl('', { nonNullable: true, validators: [Validators.email] }),
+	role: new FormControl('USER', { nonNullable: true })
+});</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How should an Angular HTTP interceptor handle a 401?</h3>
+<div class="q-answer">Attach credentials to trusted API requests, add correlation headers, centralize safe error mapping, and handle a 401 through one refresh flow. Queue concurrent failed requests behind the refresh, retry once, and redirect only after refresh fails. Avoid infinite retry loops and never log access or refresh tokens.</div>
+<pre><code>return next(req).pipe(
+	catchError(error =&gt; {
+		if (error.status !== 401 || req.url.includes('/refresh')) {
+			return throwError(() =&gt; error);
+		}
+		return auth.refreshOnce().pipe(
+			switchMap(token =&gt; next(addToken(req, token)))
+		);
+	})
+);</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you diagnose an Angular dashboard that is slow?</h3>
+<div class="q-answer"><strong>Dry run:</strong> Reproduce with production-like data. Use the browser network panel to find duplicate or oversized requests. Profile scripting and rendering. Inspect subscriptions and lifecycle hooks. Check list identity and template functions. Measure bundle size and lazy routes. Fix one bottleneck at a time, then compare first contentful render, interaction latency, request count, and memory before and after.</div>
+</div>
+</section>
+
+<!-- DAY 3 SECTION -->
+<section id="day3" class="day-section">
+<h2 class="day-title">DAY 3 — MongoDB + Redis + JWT/OAuth + Microservices + Kafka</h2>
+
+<div class="checklist">
+<strong>Day 3 Checklist:</strong>
+<ul>
+<li>embed/referencespan_203span_203</li>
+<li>indexes/compound/explain/ESRspan_204span_204</li>
+<li>match/group/project/sort/lookup/unwind/facetspan_205span_205</li>
+<li>large data/cursor paginationspan_206span_206</li>
+<li>transactions/consistencyspan_207span_207</li>
+<li>Redis cache-aside/TTL/invalidation/failurespan_208span_208</li>
+<li>JWT access/refresh/OAuth/RBACspan_209span_209</li>
+<li>API Gateway/service discoveryspan_210span_210</li>
+<li>Kafka/RabbitMQspan_211span_211</li>
+<li>retry/backoff/idempotency/DLQspan_212span_212</li>
+<li>circuit breaker/Saga/eventual consistencyspan_213span_213</li>
+<li>logs/metrics/tracingspan_214span_214</li>
+</ul>
+</div>
+
+<div id="topic-mongo" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">Embedding vs referencing?</h3>
+<div class="q-answer">
+Embed small bounded data normally read togetherspan_215span_215. Reference large/shared/independently updated/unbounded relationshipsspan_216span_216.
+</div>
+<pre><code>{_id:1,address:{city:"Kolkata"}} // embeddedspan_217span_217
+{_id:1,customerId:ObjectId("...")} // referencespan_218span_218</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is an index?</h3>
+<div class="q-answer">
+A structure that accelerates lookup/sort but costs storage and write/update overheadspan_219span_219.
+</div>
+<pre><code>db.users.createIndex({email:1},{unique:true});span_220span_220</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How diagnose a slow query?</h3>
+<div class="q-answer">
+Use explain/profile data, inspect winning plan and keys/docs examined, verify index/query shape, optimize and measure againspan_221span_221.
+</div>
+<pre><code>db.orders.find({customerId:id}).sort({createdAt:-1}).explain("executionStats");span_222span_222</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is a compound index?</h3>
+<div class="q-answer">
+An index over multiple fields; field order matters for useful query/sort patternsspan_223span_223.
+</div>
+<pre><code>db.orders.createIndex({customerId:1,createdAt:-1});span_224span_224</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is ESR?</h3>
+<div class="q-answer">
+Equality → Sort → Range is a useful starting guideline for compound indexes; validate against real workload/explainspan_225span_225.
+</div>
+<pre><code>db.orders.createIndex({customerId:1,status:1,createdAt:-1});span_226span_226</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">group?</h3>
+<div class="q-answer">
+<code>group</code> groups documents and calculates accumulationsspan_227span_227.
+</div>
+<pre><code>db.orders.aggregate([span_228span_228
+{latex
+match:{status:"PAID"}},[span_229](start_span)[span_229](end_span) {
+
+group:{_id:"latex
+customerId",total:{
+
+sum:"$`amount"}}}span_230span_230
+]);span_231span_231</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">$lookup?&lt;/h3&gt; &lt;div class="q-answer"&gt; Combines related documents from another collection in an aggregation pipeline[span_232](start_span)[span_232](end_span). &lt;/div&gt; &lt;pre&gt;&lt;code&gt;{$lookup:{from:"users",localField:"userId",foreignField:"_id",as:"user"}}span_233span_233</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">$unwind?&lt;/h3&gt; &lt;div class="q-answer"&gt; Deconstructs an array so each element becomes a pipeline document[span_234](start_span)[span_234](end_span). &lt;/div&gt; &lt;pre&gt;&lt;code&gt;{$unwind:"`$items"}span_235span_235</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">latex
+facet?&lt;/h3&gt; &lt;div class="q-answer"&gt; Runs multiple pipelines over the same input, useful for data plus count/statistics[span_236](start_span)[span_236](end_span). &lt;/div&gt; &lt;pre&gt;&lt;code&gt;{
+
+facet:{data:[{latex
+skip:0},{
+
+limit:20}],total:[{$`count:"count"}]}}span_237span_237</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How handle millions of documents?</h3>
+<div class="q-answer">
+Selective indexes, projection, cursor pagination, efficient aggregation, suitable archival/partitioning and measurementspan_238span_238.
+</div>
+<pre><code>db.orders.find({createdAt:{`$lt:cursor}}).sort({createdAt:-1}).limit(50);span_239span_239</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">When use transactions?</h3>
+<div class="q-answer">
+When multiple writes must satisfy an atomic consistency requirementspan_240span_240. Prefer good modeling before adding transactionsspan_241span_241.
+</div>
+<pre><code>await session.withTransaction(async()=>{span_242span_242
+await orders.insertOne(o,{session});span_243span_243
+await inventory.updateOne(f,u,{session});span_244span_244
+});span_245span_245</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is data consistency?</h3>
+<div class="q-answer">
+Maintain business invariants and choose an appropriate consistency model; distributed systems may require eventual consistencyspan_246span_246.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is cache-aside?</h3>
+<div class="q-answer">
+Check Redis first; on miss read DB and populate Redis, usually with TTLspan_247span_247. DB remains source of truthspan_248span_248.
+</div>
+<pre><code>const v=await redis.get(key);span_249span_249
+if(v)return JSON.parse(v);span_250span_250
+const d=await db.users.findOne({id});span_251span_251
+await redis.set(key,JSON.stringify(d),{EX:300});span_252span_252</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is cache invalidation?</h3>
+<div class="q-answer">
+Delete/update cache after source changes; TTL/versioned keys can add safetyspan_253span_253.
+</div>
+<pre><code>await db.users.updateOne({id},{latex
+set:update});[span_254](start_span)[span_254](end_span) await redis.del(`user:
+
+{id}`);span_255span_255</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What if Redis goes down?</h3>
+<div class="q-answer">
+If Redis is only a cache, fall back safely to DB with timeouts/circuit breaking and monitor database loadspan_256span_256.
+</div>
+<pre><code>try{return await cache.get(k)}span_257span_257
+catch{return await db.users.findOne({id})}span_258span_258</code></pre>
+</div>
+
+<div id="topic-micro" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">Authentication vs authorization?</h3>
+<div class="q-answer">
+Authentication verifies identity; authorization decides permissionspan_259span_259.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Explain JWT.</h3>
+<div class="q-answer">
+A signed token contains claimsspan_260span_260. Server validates signature and relevant claims such as expiry, issuer and audiencespan_261span_261.
+</div>
+<pre><code>const payload=jwt.verify(token,publicKey,{issuer:"api",audience:"web"});span_262span_262</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Why access + refresh tokens?</h3>
+<div class="q-answer">
+Short-lived access tokens reduce exposurespan_263span_263. Refresh tokens obtain new access tokens and need strong protection/lifecycle controlsspan_264span_264.
+</div>
+<pre><code>POST /auth/refreshspan_265span_265</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">OAuth vs JWT?</h3>
+<div class="q-answer">
+OAuth is an authorization framework; JWT is a token formatspan_266span_266. OAuth can use JWTs but they are not equivalentspan_267span_267.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is RBAC?</h3>
+<div class="q-answer">
+Permissions are grouped into roles and users receive roles; backend services enforce authorizationspan_268span_268.
+</div>
+<pre><code>if(!user.roles.includes("ADMIN"))return res.sendStatus(403);span_269span_269</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Why microservices?</h3>
+<div class="q-answer">
+Independent business capabilities can deploy/scale separatelyspan_270span_270. Trade-offs include operational complexity, network failures and distributed consistencyspan_271span_271.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is an API Gateway?</h3>
+<div class="q-answer">
+A client-facing entry point for routing and cross-cutting policies such as auth integration and rate limitingspan_272span_272.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">REST vs messaging?</h3>
+<div class="q-answer">
+REST is usually synchronous request/responsespan_273span_273. Messaging enables asynchronous decoupling, buffering and event-driven workflowsspan_274span_274.
+</div>
+<pre><code>POST /ordersspan_275span_275
+OrderCreated -> Kafka -> Inventory/Notify/Analyticsspan_276span_276</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Kafka core concepts?</h3>
+<div class="q-answer">
+Producer, topic, partition, offset, broker and consumer groupspan_277span_277. Partitions provide parallelism; groups distribute partition processingspan_278span_278.
+</div>
+<pre><code>producer.send({topic:"orders",messages:[{key:orderId,value:JSON.stringify(event)}]});span_279span_279</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is idempotency?</h3>
+<div class="q-answer">
+Repeated processing of the same logical operation produces one intended business effectspan_280span_280.
+</div>
+<pre><code>if(await db.processedEvents.findOne({eventId}))return;span_281span_281
+await process(event); await db.processedEvents.insertOne({eventId});span_282span_282</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is a DLQ?</h3>
+<div class="q-answer">
+A dead-letter queue stores repeatedly failing messages for investigation/replay without blocking normal trafficspan_283span_283.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is a circuit breaker?</h3>
+<div class="q-answer">
+After repeated downstream failures, calls temporarily stop; a later probe tests recovery and prevents cascading failuresspan_284span_284.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is Saga?</h3>
+<div class="q-answer">
+A distributed workflow of local transactions with compensating actions when later steps failspan_285span_285.
+</div>
+<pre><code>OrderCreated -> ReserveInventory -> Paymentspan_286span_286
+PaymentFailed -> ReleaseInventoryspan_287span_287</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How handle downstream failure?</h3>
+<div class="q-answer">
+Timeouts, bounded exponential-backoff retries, circuit breakers, idempotency, safe fallbacks and asynchronous queues where appropriatespan_288span_288.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is eventual consistency?</h3>
+<div class="q-answer">
+Services may temporarily differ after asynchronous events but converge as processing completesspan_289span_289.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is service discovery?</h3>
+<div class="q-answer">
+A mechanism for services to locate healthy instances dynamically instead of hard-coded addressesspan_290span_290.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is distributed tracing?</h3>
+<div class="q-answer">
+Trace/correlation context is propagated across services to follow latency and failures end-to-endspan_291span_291.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Kafka vs RabbitMQ?</h3>
+<div class="q-answer">
+Kafka is strong for durable event streams, partitions, replay and high-throughput pipelinesspan_292span_292. RabbitMQ is strong for queue/routing/task patternsspan_293span_293. Choose based on delivery, ordering, replay and workload needsspan_294span_294.
+</div>
+</div>
+
+<div class="framework-box">
+<h3>Architecture Drillspan_295span_295</h3>
+<pre><code>Angularspan_296span_296
+|span_297span_297
+HTTPS + JWTspan_298span_298
+vspan_299span_299
+API Gatewayspan_300span_300
++-- User Service ---- MongoDBspan_301span_301
++-- Order Service --- MongoDB --- Kafkaspan_302span_302
++-- Payment Service - MongoDBspan_303span_303
+|span_304span_304
+Inventory/Notifyspan_305span_305
+Redis = cachespan_306span_306
+Logs + Metrics + Traces = observabilityspan_307span_307
+CI/CD = build -> test -> scan -> deployspan_308span_308</code></pre>
+</div>
+</section>
+
+<!-- DAY 4 SECTION -->
+<section id="day4" class="day-section">
+<h2 class="day-title">DAY 4 — DSA + Azure DevOps + Production Scenarios + Mock</h2>
+
+<div class="checklist">
+<strong>Day 4 Checklist:</strong>
+<ul>
+<li>Two Sumspan_309span_309</li>
+<li>first uniquespan_310span_310</li>
+<li>anagramspan_311span_311</li>
+<li>sliding windowspan_312span_312</li>
+<li>valid parenthesesspan_313span_313</li>
+<li>binary searchspan_314span_314</li>
+<li>reverse linked listspan_315span_315</li>
+<li>Big-Ospan_316span_316</li>
+<li>Azure Repos/Pipelines/Boards/Artifactsspan_317span_317</li>
+<li>CI/CD/secrets/rollbackspan_318span_318</li>
+<li>Dockerspan_319span_319</li>
+<li>mock interviewspan_320span_320</li>
+</ul>
+</div>
+
+<div id="topic-dsa" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">Two Sum</h3>
+<div class="q-answer">
+Map value index; check target-x before storing currentspan_321span_321. O(n) time/O(n) spacespan_322span_322.
+</div>
+<pre><code>function twoSum(a,t){span_323span_323
+const m=new Map();span_324span_324
+for(let i=0;i<a.length;i++){span_325span_325
+const n=t-a[i];span_326span_326
+if(m.has(n))return [m.get(n),i];span_327span_327
+m.set(a[i],i);span_328span_328
+}span_329span_329
+return [];span_330span_330
+}span_331span_331</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">First non-repeating character</h3>
+<div class="q-answer">
+Count with Map, then scan for first count 1span_332span_332. O(n)span_333span_333.
+</div>
+<pre><code>function firstUnique(s){span_334span_334
+const m=new Map();span_335span_335
+for(const c of s)m.set(c,(m.get(c)||0)+1);span_336span_336
+for(const c of s)if(m.get(c)===1)return c;span_337span_337
+return null;span_338span_338
+}span_339span_339</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Anagram</h3>
+<div class="q-answer">
+Compare character frequencies. The invariant is that every character count returns to zero after both strings are processed. Time is O(n) and extra space is O(k), where k is the character set.
+</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>listen</code> and <code>silent</code>, count the first word, subtract counts for the second word, then verify every count is zero. For <code>rat</code> and <code>car</code>, the count for <code>t</code> becomes 1 and the count for <code>c</code> becomes -1, so the result is false.</div>
+<pre><code>function isAnagram(first, second) {
+	if (first.length !== second.length) return false;
+
+	const counts = new Map();
+	for (const character of first) {
+		counts.set(character, (counts.get(character) || 0) + 1);
+	}
+
+	for (const character of second) {
+		const remaining = (counts.get(character) || 0) - 1;
+		if (remaining &lt; 0) return false;
+		counts.set(character, remaining);
+	}
+
+	return [...counts.values()].every(count =&gt; count === 0);
+}
+
+isAnagram('listen', 'silent'); // true</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Maximum sum of K consecutive values</h3>
+<div class="q-answer">
+Sliding window: calculate first K, then subtract outgoing/add incomingspan_352span_352. O(n)span_353span_353.
+</div>
+<pre><code>function maxK(a,k){span_354span_354
+let s=0; for(let i=0;i<k;i++)s+=a[i];span_355span_355
+let best=s;span_356span_356
+for(let i=k;i<a.length;i++){span_357span_357
+s+=a[i]-a[i-k]; best=Math.max(best,s);span_358span_358
+}span_359span_359
+return best;span_360span_360
+}span_361span_361</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Valid parentheses</h3>
+<div class="q-answer">
+Push opening brackets. When a closing bracket arrives, pop and compare it with the expected opening bracket. The stack must be empty at the end. Time is O(n), space is O(n).
+</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>{[()]}</code>, the stack evolves as <code>{</code>, <code>{[</code>, <code>{[(</code>. Each closing bracket matches the top and removes it, leaving an empty stack. For <code>{[(]}</code>, <code>]</code> expects <code>[</code> but the top is <code>(</code>, so return false immediately.</div>
+<pre><code>function isValidParentheses(input) {
+	const stack = [];
+	const expectedOpening = { ')': '(', ']': '[', '}': '{' };
+
+	for (const character of input) {
+		if ('([{'.includes(character)) {
+			stack.push(character);
+		} else if (stack.pop() !== expectedOpening[character]) {
+			return false;
+		}
+	}
+
+	return stack.length === 0;
+}
+
+isValidParentheses('{[()]}'); // true</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Binary search</h3>
+<div class="q-answer">
+On sorted input, halve the search range each iterationspan_372span_372. O(log n)span_373span_373.
+</div>
+<pre><code>function bs(a,t){span_374span_374
+let l=0,r=a.length-1;span_375span_375
+while(l<=r){span_376span_376
+const m=Math.floor((l+r)/2);span_377span_377
+if(a[m]===t)return m;span_378span_378
+if(a[m]<t)l=m+1; else r=m-1;span_379span_379
+}span_380span_380
+return -1;span_381span_381
+}span_382span_382</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Reverse linked list</h3>
+<div class="q-answer">
+Keep prev/current, reverse next pointer and advancespan_383span_383. O(n) time/O(1) extra spacespan_384span_384.
+</div>
+<pre><code>function reverse(head){span_385span_385
+let p=null,c=head;span_386span_386
+while(c){const n=c.next;c.next=p;p=c;c=n;}span_387span_387
+return p;span_388span_388
+}span_389span_389</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What is Big-O?</h3>
+<div class="q-answer">
+Asymptotic growth of time/space with input size, ignoring constants and lower-order termsspan_390span_390.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Array lookup vs Map lookup?</h3>
+<div class="q-answer">
+Array index access is typically O(1); Map lookup is average O(1); unsorted value search is O(n)span_391span_391.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">When use a stack?</h3>
+<div class="q-answer">
+Matching brackets, nested structures, DFS, undo and monotonic-stack patternsspan_392span_392.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">When use a queue?</h3>
+<div class="q-answer">
+BFS, FIFO processing and task workflowsspan_393span_393.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">When use sliding window?</h3>
+<div class="q-answer">
+Contiguous subarray/substring problems where the answer can be updated as the window movesspan_394span_394.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What say before coding?</h3>
+<div class="q-answer">
+Clarify input/output and edge cases, give brute force, optimize, explain complexity, code, then testspan_395span_395.
+</div>
+</div>
+
+<div id="topic-azure" style="scroll-margin-top: 80px;"></div>
+
+<div class="q-card">
+<h3 class="q-title">What is CI/CD?</h3>
+<div class="q-answer">
+CI integrates changes with automated validationspan_396span_396. CD automates delivery/deployment through controlled environmentsspan_397span_397.
+</div>
+<pre><code>Build -> Test -> Scan -> Package -> Dev -> Test -> Approval -> Prodspan_398span_398</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Azure Repos/Pipelines/Boards/Artifacts?</h3>
+<div class="q-answer">
+Repos stores source; Pipelines automates build/test/deploy; Boards manages work; Artifacts stores packages/build outputsspan_399span_399.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How manage environment configuration?</h3>
+<div class="q-answer">
+Keep config outside source where possible; use secure secret/config stores and never commit credentialsspan_400span_400.
+</div>
+<pre><code>API_URL = environment configspan_401span_401
+JWT_SECRET = secret-store referencespan_402span_402</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How rollback?</h3>
+<div class="q-answer">
+Use versioned immutable artifacts and keep a known-good versionspan_403span_403. Roll back quickly, verify health, then investigatespan_404span_404.
+</div>
+<pre><code>deploy myapp:1.42span_405span_405
+incidentspan_406span_406
+deploy myapp:1.41span_407span_407</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Why Docker?</h3>
+<div class="q-answer">
+Packages the application/runtime into a repeatable image, reducing environment driftspan_408span_408.
+</div>
+<pre><code>FROM node:22-alpinespan_409span_409
+WORKDIR /appspan_410span_410
+COPY package*.json ./span_411span_411
+RUN npm ci --omit=devspan_412span_412
+COPY . .span_413span_413
+CMD ["node","server.js"][span_414](start_span)span_414</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What should CI pipeline include?</h3>
+<div class="q-answer">
+Install dependencies, lint, unit tests, build, security/dependency checks, package an immutable artifact and deploy through controlled environmentsspan_415span_415.
+</div>
+</div>
+
+<div id="topic-scenarios" style="scroll-margin-top: 80px;"></div>
+<h3 class="day-title" style="font-size: 1.3rem; margin-top: 30px;">Senior Production Scenario Q&A</h3>
+
+<div class="q-card">
+<h3 class="q-title">API latency suddenly increases.</h3>
+<div class="q-answer">
+Measure endpoint latency, traces, DB queries, cache hit rate, CPU/memory and downstream latencyspan_416span_416. Compare baseline, mitigate immediate impact, fix root cause and add preventionspan_417span_417.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">MongoDB query becomes slow.</h3>
+<div class="q-answer">
+Use explain/profile, inspect indexes/query shape, reduce payload, optimize aggregation/indexing, benchmark and monitorspan_418span_418.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Angular dashboard makes duplicate calls.</h3>
+<div class="q-answer">
+Inspect lifecycle/subscriptions/network waterfall; centralize shared data; cache/share or use state/signals; remove duplicate subscriptionsspan_419span_419.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Kafka event processed twice.</h3>
+<div class="q-answer">
+Assume at-least-once delivery; make consumer idempotent with event ID/unique constraint/processed-event record; use retries and DLQspan_420span_420.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Payment succeeds but client times out and retries.</h3>
+<div class="q-answer">
+Use an idempotency key; persist operation state/result and return the existing result for repeated keysspan_421span_421.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Redis has stale data.</h3>
+<div class="q-answer">
+Define invalidation ownership; delete/update on writes; use TTL/versioned keys and monitorspan_422span_422.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">One microservice is down.</h3>
+<div class="q-answer">
+Isolate failure with timeout/circuit breaker/fallback; queue non-critical work; return graceful partial results when safespan_423span_423.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Traffic suddenly increases 10×.</h3>
+<div class="q-answer">
+Cache read-heavy data, scale stateless services, optimize DB/indexes/replicas, queue async work, rate-limit and load-testspan_424span_424.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Bad deployment reaches production.</h3>
+<div class="q-answer">
+Rollback to known-good artifact; inspect logs/traces/config/schema changes; fix through pipeline and add regression testspan_425span_425.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How monitor microservices?</h3>
+<div class="q-answer">
+Structured logs with correlation IDs, metrics for latency/error/throughput, distributed tracing, dashboards and meaningful alerts/SLOsspan_426span_426.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Design order→payment→inventory.</h3>
+<div class="q-answer">
+Use bounded services with local persistencespan_427span_427. Synchronous calls only where immediate result is required; events for decoupled work; idempotency and Saga/compensation for distributed workflow; observability everywherespan_428span_428.
+</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How handle a slow downstream service?</h3>
+<div class="q-answer">
+Set bounded timeouts; use circuit breaking, fallback/cache or asynchronous processing based on business requirementsspan_429span_429. Never wait indefinitelyspan_430span_430.
+</div>
+</div>
+</section>
+
+<section id="topic-react" class="day-section track-section">
+<h2 class="day-title">REACT DEEP DIVE — Hooks, State, Rendering and Production UI</h2>
+<div class="checklist"><strong>Senior React checklist:</strong><ul>
+<li>render and commit phases, reconciliation and stable keys</li>
+<li>useState, useReducer, useEffect, useRef and custom hooks</li>
+<li>Context, Redux-style stores and server-state caching</li>
+<li>forms, accessibility, error boundaries and route protection</li>
+<li>memoization, virtualization, code splitting and profiling</li>
+</ul></div>
+<div class="q-card">
+<h3 class="q-title">Why does a React component re-render?</h3>
+<div class="q-answer">A component renders when its state changes, its parent renders with changed inputs, or a consumed context value changes. React creates a new element description, reconciles it with the previous description, and commits only necessary DOM changes. A new object or callback reference can cause child work even when its business value is unchanged, but memoization should be added only after profiling.</div>
+<div class="enhancement"><strong>Interview dry run:</strong> If a parent updates its counter, the child may render again. If the child receives <code>{ name: 'A' }</code> created inline, the object identity changes on every parent render. Move stable data outside render or use a measured memoization boundary, then verify with the React Profiler.</div>
+<pre><code>function Orders({ orders, selectedStatus }) {
+	const visibleOrders = orders.filter(order =&gt; order.status === selectedStatus);
+	return visibleOrders.map(order =&gt; (
+		&lt;OrderRow key={order.id} order={order} /&gt;
+	));
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">When should you use useEffect?</h3>
+<div class="q-answer">Use an effect to synchronize with an external system such as a websocket, timer, browser API, subscription, or imperative third-party widget. Do not use it to calculate derived values that can be computed during render, or to copy props into state without a clear ownership rule. Cleanup must reverse the setup.</div>
+<pre><code>function LiveOrders({ userId }) {
+	useEffect(() =&gt; {
+		const connection = connectToOrders(userId);
+		connection.on('order', handleOrder);
+		return () =&gt; connection.close();
+	}, [userId]);
+
+	return &lt;OrderList /&gt;;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you prevent duplicate API calls in React?</h3>
+<div class="q-answer">Give the request one owner, keep query keys stable, cancel or ignore obsolete requests, and use a server-state cache for deduplication and invalidation. Avoid fetching the same resource independently from several child components. Handle loading, stale, empty, error, retry, and cancellation states explicitly.</div>
+<pre><code>const ordersQuery = useQuery({
+	queryKey: ['orders', { status, page }],
+	queryFn: ({ signal }) =&gt; fetchOrders({ status, page, signal }),
+	staleTime: 30_000
+});</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you design a production form?</h3>
+<div class="q-answer">Keep the form model separate from the API DTO, validate at the boundary, show field-level and server-level errors, preserve user input on recoverable failures, disable duplicate submission while a request is active, and make keyboard and screen-reader behavior correct. For complex workflows use a reducer or form library rather than scattered state variables.</div>
+<pre><code>async function submitForm(values) {
+	setSubmitting(true);
+	setServerError(null);
+	try {
+		const input = orderSchema.parse(values);
+		await api.createOrder(input);
+	} catch (error) {
+		setServerError(toUserSafeMessage(error));
+	} finally {
+		setSubmitting(false);
+	}
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is an error boundary and what can it not catch?</h3>
+<div class="q-answer">An error boundary isolates rendering errors in a subtree and shows a recovery UI. It does not automatically catch errors in event handlers, asynchronous callbacks, server code, or errors thrown during the boundary itself. Handle those paths explicitly and send safe diagnostic context to observability tooling.</div>
+<pre><code>class SectionBoundary extends React.Component {
+	state = { failed: false };
+	static getDerivedStateFromError() { return { failed: true }; }
+	render() {
+		return this.state.failed ? &lt;RetryPanel /&gt; : this.props.children;
+	}
+}</code></pre>
+</div>
+</section>
+
+<section id="topic-dsa-extra" class="day-section track-section">
+<h2 class="day-title">DSA PATTERNS — Complete Code, Dry Runs and Senior Explanation</h2>
+<div class="q-card">
+<h3 class="q-title">Two Sum with a hash map</h3>
+<div class="q-answer"><strong>Interview answer:</strong> Store each previously seen value and its index in a Map. At index <code>i</code>, the required partner is <code>target - numbers[i]</code>. Check for that partner before storing the current value so an element is never reused. This changes the brute-force O(n²) pair search into average O(n) time with O(n) extra space.</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>[2,7,11,15]</code> and target <code>9</code>: index 0 has 2, partner 7 is absent, so store <code>2 → 0</code>. Index 1 has 7, partner 2 is present at index 0, so return <code>[0,1]</code>. For duplicates such as <code>[3,3]</code> target 6, the first 3 is stored and the second 3 finds it.</div>
+<pre><code>function twoSum(numbers, target) {
+	const indexByValue = new Map();
+
+	for (let index = 0; index &lt; numbers.length; index += 1) {
+		const partner = target - numbers[index];
+		if (indexByValue.has(partner)) {
+			return [indexByValue.get(partner), index];
+		}
+		indexByValue.set(numbers[index], index);
+	}
+
+	return [];
+}
+
+twoSum([2, 7, 11, 15], 9); // [0, 1]</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Longest substring without repeating characters</h3>
+<div class="q-answer">Use a sliding window with a left boundary and a map of each character's latest index. When a repeated character appears inside the current window, move the left boundary beyond its previous position. Each character is visited a bounded number of times, so time is O(n) and space is O(k).</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>abcabcbb</code>, the window grows <code>a</code>, <code>ab</code>, <code>abc</code>. The next <code>a</code> moves left from 0 to 1, giving <code>bca</code>. Continue this way; the maximum length is 3.</div>
+<pre><code>function longestUniqueSubstring(text) {
+	const lastSeen = new Map();
+	let left = 0;
+	let best = 0;
+
+	for (let right = 0; right &lt; text.length; right += 1) {
+		const character = text[right];
+		if (lastSeen.has(character)) {
+			left = Math.max(left, lastSeen.get(character) + 1);
+		}
+		lastSeen.set(character, right);
+		best = Math.max(best, right - left + 1);
+	}
+	return best;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Merge overlapping intervals</h3>
+<div class="q-answer">Sort intervals by start time. Keep the last merged interval. If the next start is at or before the current end, extend the end; otherwise start a new merged interval. Sorting dominates the complexity: O(n log n) time and O(n) output space.</div>
+<div class="enhancement"><strong>Dry run:</strong> <code>[[1,3],[2,6],[8,10],[9,12]]</code> becomes <code>[1,6]</code>, then <code>[8,12]</code>. The second interval overlaps the first; the fourth overlaps the third.</div>
+<pre><code>function mergeIntervals(intervals) {
+	const sorted = [...intervals].sort((a, b) =&gt; a[0] - b[0]);
+	const merged = [];
+	for (const interval of sorted) {
+		const previous = merged[merged.length - 1];
+		if (!previous || interval[0] &gt; previous[1]) {
+			merged.push([...interval]);
+		} else {
+			previous[1] = Math.max(previous[1], interval[1]);
+		}
+	}
+	return merged;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Binary tree level-order traversal</h3>
+<div class="q-answer">Use a queue for breadth-first traversal. At each level capture the queue length before processing so children added during this level belong to the next level. Time is O(n) and space is O(w), where w is the maximum tree width.</div>
+<pre><code>function levelOrder(root) {
+	if (!root) return [];
+	const result = [];
+	const queue = [root];
+	let head = 0;
+
+	while (head &lt; queue.length) {
+		const levelSize = queue.length - head;
+		const level = [];
+		for (let index = 0; index &lt; levelSize; index += 1) {
+			const node = queue[head++];
+			level.push(node.value);
+			if (node.left) queue.push(node.left);
+			if (node.right) queue.push(node.right);
+		}
+		result.push(level);
+	}
+	return result;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Kth largest element in an array</h3>
+<div class="q-answer"><strong>Interview answer:</strong> For a reusable and easy-to-explain solution, maintain a min-heap of size <code>k</code>. The heap contains the best <code>k</code> values seen so far, and its smallest value is the kth largest overall. If a new value is larger than the heap minimum, remove the minimum and insert the new value. This avoids sorting the complete array and uses O(n log k) time and O(k) space.</div>
+<div class="enhancement"><strong>Dry run:</strong> Input <code>[3,2,1,5,6,4]</code>, <code>k = 2</code>. Keep <code>[3]</code>, then <code>[2,3]</code>. Value <code>1</code> is ignored. Value <code>5</code> replaces <code>2</code>, giving <code>[3,5]</code>. Value <code>6</code> replaces <code>3</code>, giving <code>[5,6]</code>. Value <code>4</code> is ignored. The heap minimum is <code>5</code>, so the answer is 5.</div>
+<pre><code>class MinHeap {
+	constructor() { this.values = []; }
+	peek() { return this.values[0]; }
+	push(value) {
+		this.values.push(value);
+		let index = this.values.length - 1;
+		while (index &gt; 0) {
+			const parent = Math.floor((index - 1) / 2);
+			if (this.values[parent] &lt;= this.values[index]) break;
+			[this.values[parent], this.values[index]] = [this.values[index], this.values[parent]];
+			index = parent;
+		}
+	}
+	pop() {
+		const minimum = this.values[0];
+		const last = this.values.pop();
+		if (this.values.length) {
+			this.values[0] = last;
+			let index = 0;
+			while (true) {
+				const left = index * 2 + 1;
+				const right = left + 1;
+				let smallest = index;
+				if (left &lt; this.values.length &amp;&amp; this.values[left] &lt; this.values[smallest]) smallest = left;
+				if (right &lt; this.values.length &amp;&amp; this.values[right] &lt; this.values[smallest]) smallest = right;
+				if (smallest === index) break;
+				[this.values[index], this.values[smallest]] = [this.values[smallest], this.values[index]];
+				index = smallest;
+			}
+		}
+		return minimum;
+	}
+}
+
+function kthLargest(numbers, k) {
+	if (k &lt; 1 || k &gt; numbers.length) throw new RangeError('invalid k');
+	const heap = new MinHeap();
+	for (const number of numbers) {
+		heap.push(number);
+		if (heap.values.length &gt; k) heap.pop();
+	}
+	return heap.peek();
+}
+
+kthLargest([3, 2, 1, 5, 6, 4], 2); // 5</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Top K frequent elements</h3>
+<div class="q-answer">Count each value, then place values into frequency buckets. Bucket index is the frequency, so scanning from the highest bucket downward returns the most frequent values without repeatedly sorting. This is O(n) average time and O(n) space when values are hashable.</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>[1,1,1,2,2,3]</code> and <code>k = 2</code>, frequencies are <code>1 → 3</code>, <code>2 → 2</code>, <code>3 → 1</code>. Scan bucket 3 and take 1, then bucket 2 and take 2. Stop after two results.</div>
+<pre><code>function topKFrequent(values, k) {
+	const counts = new Map();
+	for (const value of values) counts.set(value, (counts.get(value) || 0) + 1);
+
+	const buckets = Array.from({ length: values.length + 1 }, () =&gt; []);
+	for (const [value, frequency] of counts) buckets[frequency].push(value);
+
+	const result = [];
+	for (let frequency = buckets.length - 1; frequency &gt;= 0 &amp;&amp; result.length &lt; k; frequency -= 1) {
+		for (const value of buckets[frequency]) {
+			result.push(value);
+			if (result.length === k) break;
+		}
+	}
+	return result;
+}
+
+topKFrequent([1, 1, 1, 2, 2, 3], 2); // [1, 2]</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Product of array except self</h3>
+<div class="q-answer">Build the answer in two passes. The first pass stores the product of all values to the left of each position. The second pass multiplies by the product of values to the right. This avoids division, handles zeros correctly, runs in O(n), and uses O(1) extra space apart from the output array.</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>[1,2,3,4]</code>, the left products are <code>[1,1,2,6]</code>. Scanning from the right with suffix products <code>24,12,4,1</code> gives <code>[24,12,8,6]</code>.</div>
+<pre><code>function productExceptSelf(numbers) {
+	const result = Array(numbers.length).fill(1);
+	let prefix = 1;
+	for (let index = 0; index &lt; numbers.length; index += 1) {
+		result[index] = prefix;
+		prefix *= numbers[index];
+	}
+
+	let suffix = 1;
+	for (let index = numbers.length - 1; index &gt;= 0; index -= 1) {
+		result[index] *= suffix;
+		suffix *= numbers[index];
+	}
+	return result;
+}
+
+productExceptSelf([1, 2, 3, 4]); // [24, 12, 8, 6]</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Detect a cycle in a linked list</h3>
+<div class="q-answer">Use Floyd's tortoise-and-hare algorithm. A slow pointer advances one step and a fast pointer advances two. If they meet, the fast pointer has caught the slow pointer inside a cycle. If fast reaches null, the list is acyclic. This uses O(n) time and O(1) space.</div>
+<div class="enhancement"><strong>Dry run:</strong> For <code>3 → 2 → 0 → -4</code> with the tail pointing back to <code>2</code>, slow moves one node and fast two nodes per round. They eventually meet inside the loop. For a straight list, fast reaches null and the algorithm returns false.</div>
+<pre><code>function hasCycle(head) {
+	let slow = head;
+	let fast = head;
+	while (fast &amp;&amp; fast.next) {
+		slow = slow.next;
+		fast = fast.next.next;
+		if (slow === fast) return true;
+	}
+	return false;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Number of islands in a grid</h3>
+<div class="q-answer">Scan every cell. When an unvisited land cell is found, increment the island count and run DFS or BFS to mark all connected land in four directions. The visited marking is the key invariant: each land cell is processed once, giving O(rows × columns) time and space proportional to the grid recursion or queue.</div>
+<div class="enhancement"><strong>Dry run:</strong> On a grid containing a cluster of adjacent 1s, the first 1 starts one DFS. Its neighbors are converted to 0, so later scans do not count the same island again. A separated cluster starts a second DFS and increments the answer.</div>
+<pre><code>function numberOfIslands(grid) {
+	if (!grid.length) return 0;
+	const rows = grid.length;
+	const columns = grid[0].length;
+	let islands = 0;
+
+	function visit(row, column) {
+		if (row &lt; 0 || row &gt;= rows || column &lt; 0 || column &gt;= columns || grid[row][column] !== '1') return;
+		grid[row][column] = '0';
+		visit(row + 1, column);
+		visit(row - 1, column);
+		visit(row, column + 1);
+		visit(row, column - 1);
+	}
+
+	for (let row = 0; row &lt; rows; row += 1) {
+		for (let column = 0; column &lt; columns; column += 1) {
+			if (grid[row][column] === '1') {
+				islands += 1;
+				visit(row, column);
+			}
+		}
+	}
+	return islands;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is the kth element pattern an interviewer may ask?</h3>
+<div class="q-answer">Clarify whether kth means smallest or largest, whether duplicates count, whether the input is sorted, and whether mutation is allowed. Then choose: sorting for the simplest O(n log n) explanation, a heap for streaming or bounded-memory input, or quickselect for average O(n) selection. A senior answer explicitly states the trade-off rather than claiming one algorithm is always best.</div>
+<pre><code>// Simplest kth-smallest solution when mutation is not allowed.
+function kthSmallest(numbers, k) {
+	if (k &lt; 1 || k &gt; numbers.length) throw new RangeError('invalid k');
+	const sorted = [...numbers].sort((left, right) =&gt; left - right);
+	return sorted[k - 1];
+}
+
+kthSmallest([7, 2, 9, 4], 2); // 4</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What should you say while solving any coding problem?</h3>
+<div class="q-answer">Clarify input constraints and expected output. State a small example and edge cases. Explain a brute-force approach first, identify its bottleneck, derive the data structure or pattern that removes the bottleneck, state time and space complexity, code with meaningful names, dry-run the sample, then test empty input, one item, duplicates, negative values, and maximum constraints.</div>
+</div>
+</section>
+
+<section id="topic-aws" class="day-section track-section">
+<h2 class="day-title">AWS SERVER MASTERY — Services, Architecture and Operations</h2>
+<div class="checklist"><strong>Prioritize these AWS subjects:</strong><ul>
+<li>IAM, roles, policies, STS and least privilege</li>
+<li>VPC, subnets, route tables, NAT Gateway, security groups and load balancers</li>
+<li>EC2, Auto Scaling, ECS, EKS, Lambda and deployment choices</li>
+<li>S3, CloudFront, Route 53, API Gateway and WAF</li>
+<li>RDS, DynamoDB, ElastiCache Redis, DocumentDB and MongoDB Atlas</li>
+<li>SQS, SNS, EventBridge, MSK/Kafka and dead-letter queues</li>
+<li>CloudWatch, X-Ray, CloudTrail, Secrets Manager, KMS, backups and disaster recovery</li>
+</ul></div>
+<div class="flow-diagram" aria-label="AWS full stack architecture">
+<div class="flow-step">Route 53 + CloudFront<br><small>DNS, CDN, TLS</small></div>
+<div class="flow-step">WAF + ALB<br><small>filtering, routing, health checks</small></div>
+<div class="flow-step">ECS / EC2 Auto Scaling<br><small>stateless Node services</small></div>
+<div class="flow-step">MongoDB Atlas + Redis + SQS<br><small>data, cache, async work</small></div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How would you deploy a Node and Angular application on AWS?</h3>
+<div class="q-answer">Build the Angular application into static assets and publish them to a private S3 bucket served through CloudFront. Put the Node API in private subnets behind an Application Load Balancer, running on ECS Fargate or EC2 Auto Scaling. Route traffic with Route 53, protect the edge with WAF, keep secrets in Secrets Manager, and allow the API to reach MongoDB Atlas and ElastiCache through controlled security-group and network rules. Add health checks, rolling or blue-green deployment, logs, metrics, alarms, backups, and rollback.</div>
+<pre><code>User
+	-> Route 53 -> CloudFront + WAF -> S3 (Angular assets)
+	-> ALB -> ECS Fargate (Node API in private subnets)
+										|-> MongoDB Atlas
+										|-> ElastiCache Redis
+										|-> SQS -> worker service
+										|-> CloudWatch logs/metrics/alarms</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">IAM user, role and policy: what is the difference?</h3>
+<div class="q-answer">A policy is a JSON permission document. An IAM principal such as a user, group, or role receives permissions through policies. A role is assumed temporarily by an AWS service, workload, or federated identity and produces short-lived credentials through STS. Prefer workload roles over access keys stored in servers or source code.</div>
+<pre><code>// Example least-privilege policy shape
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+		"Effect": "Allow",
+		"Action": ["s3:GetObject"],
+		"Resource": "arn:aws:s3:::private-assets/*"
+	}]
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Security group versus network ACL?</h3>
+<div class="q-answer">A security group is stateful and attached to an ENI or resource; return traffic is automatically allowed for an accepted connection. A network ACL is stateless, attached to a subnet, and evaluates inbound and outbound rules separately. Use security groups for service-to-service access and NACLs as a broader subnet boundary.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">Public and private subnets: why do they matter?</h3>
+<div class="q-answer">A public subnet has a route to an Internet Gateway. A private application subnet has no direct inbound Internet route; it may use a NAT Gateway for controlled outbound updates. Databases and workers normally remain private. The ALB can be public while ECS tasks and MongoDB connections remain private.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">When would you choose ECS, EKS, Lambda or EC2?</h3>
+<div class="q-answer">Choose ECS/Fargate for containerized services with low Kubernetes operational overhead. Choose EKS when the organization needs Kubernetes portability, operators, or an existing platform. Choose Lambda for short, event-driven, stateless workloads with variable traffic and acceptable runtime limits. Choose EC2 when you need host-level control, specialized agents, or legacy workloads. Explain operational cost, cold starts, scaling, networking, deployment, and observability.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you make an S3 upload secure?</h3>
+<div class="q-answer">Keep the bucket private, block public access, encrypt objects, validate file type and size on the server, generate a short-lived presigned URL, use a random object key, scan untrusted files, restrict CORS to trusted origins, and log access. Never trust the filename or MIME type supplied by the browser.</div>
+<pre><code>const command = new PutObjectCommand({
+	Bucket: process.env.UPLOAD_BUCKET,
+	Key: `uploads/${crypto.randomUUID()}`,
+	ContentType: allowedType
+});
+const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 300 });</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you scale a Node API on AWS?</h3>
+<div class="q-answer">Make instances stateless, store sessions in a suitable shared store or use token-based identity, place them behind an ALB, configure target health checks and Auto Scaling policies, cache safe read-heavy data, use connection pooling, move slow work to SQS workers, and monitor p95 latency, saturation, errors, queue age, database connections, and cache hit rate. Load-test before choosing thresholds.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you handle an AWS production incident?</h3>
+<div class="q-answer"><strong>Dry run:</strong> Confirm impact and scope from CloudWatch alarms and traces. Check the recent deployment, ALB target health, ECS task restarts, CPU/memory, database latency and connections, queue age, Redis errors, and dependency status. Mitigate first with rollback, scaling, traffic shaping, feature flags, or a safe fallback. Preserve evidence, identify the root cause, communicate status, then add a regression test, alarm, dashboard, or runbook.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is the AWS shared responsibility model?</h3>
+<div class="q-answer">AWS secures the underlying cloud infrastructure. The customer is responsible for configuration and security of the selected services: IAM permissions, operating-system patching where applicable, network rules, application security, data encryption choices, secrets, backups, logging, and compliance controls. The exact split changes between EC2, ECS, Lambda, RDS, and managed services.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">SQS vs SNS vs EventBridge: when do you choose each?</h3>
+<div class="q-answer"><strong>SQS</strong> is a durable queue that buffers work for one or more consumers and supports retries, visibility timeout, and dead-letter queues. <strong>SNS</strong> is publish-subscribe fan-out: one message can be delivered to many subscriptions such as SQS queues, Lambda, or HTTP endpoints. <strong>EventBridge</strong> is an event bus with rules that route events by event shape, source, and detail type across AWS services and SaaS integrations.</div>
+<div class="enhancement"><strong>Decision rule:</strong> Use SQS when a worker must process each job reliably. Use SNS when several subscribers need the same notification. Use EventBridge when different systems publish business events and consumers should subscribe by rules. Do not use a queue as a database; make consumers idempotent and monitor age and depth.</div>
+<pre><code>// Node.js AWS SDK: publish work to SQS
+await sqs.send(new SendMessageCommand({
+	QueueUrl: process.env.ORDER_QUEUE_URL,
+	MessageBody: JSON.stringify({ eventId, orderId, type: 'OrderCreated' }),
+	MessageDeduplicationId: eventId
+}));
+
+// Worker: acknowledge only after the business operation succeeds.
+await processOrder(message);
+await sqs.send(new DeleteMessageCommand({ QueueUrl, ReceiptHandle }));</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">API Gateway vs Application Load Balancer vs Network Load Balancer?</h3>
+<div class="q-answer"><strong>API Gateway</strong> is an API product boundary with authentication integration, throttling, usage plans, request transformation, stages, and Lambda or HTTP integrations. <strong>ALB</strong> is a Layer 7 load balancer for HTTP routing by host, path, and headers, with target health checks and container integration. <strong>NLB</strong> is a high-throughput Layer 4 load balancer for TCP, TLS, or UDP where low latency and static IP behavior matter.</div>
+<div class="enhancement"><strong>Architecture answer:</strong> A public API may use API Gateway for client-facing quotas and auth, then route to an internal ALB. Use ALB directly for a normal containerized web API. Choose NLB for non-HTTP protocols, extreme throughput, or preserving connection behavior. Put private services behind internal load balancers and never expose databases directly.</div>
+<pre><code>Client
+	-> API Gateway: auth, throttling, API version
+	-> internal ALB: path-based routing
+	-> ECS services: orders / users / payments
+	-> private MongoDB, Redis, and SQS</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do S3, CloudFront, and Route 53 work together?</h3>
+<div class="q-answer">Route 53 resolves the domain. CloudFront terminates TLS at edge locations, caches static assets, and can forward API traffic or protect the origin with WAF. S3 stores the Angular or React build as durable objects. Keep the bucket private and use Origin Access Control so users reach assets through CloudFront rather than through a public S3 URL.</div>
+<div class="enhancement"><strong>Deployment dry run:</strong> Build the frontend, upload files with a content hash, invalidate only the HTML entry point, and leave hashed JavaScript and CSS files cacheable for a long time. Configure SPA fallback so routes such as <code>/orders/42</code> return the application entry document instead of a 404.</div>
+<pre><code># Typical release flow
+npm run build
+aws s3 sync dist/ s3://private-web-assets --delete
+aws cloudfront create-invalidation \
+	--distribution-id E123456 \
+	--paths /index.html /asset-manifest.json</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">RDS, DynamoDB, DocumentDB, and MongoDB Atlas: how do you compare them?</h3>
+<div class="q-answer">RDS provides managed relational engines and is a good fit for joins, transactions, and SQL reporting. DynamoDB is a serverless key-value/document database designed around known access patterns, partition keys, and predictable scale. DocumentDB is AWS's document-oriented managed option but is not identical to MongoDB. MongoDB Atlas is the MongoDB-compatible managed platform when MongoDB behavior, aggregation, and ecosystem compatibility are requirements.</div>
+<div class="enhancement"><strong>Senior answer:</strong> Choose from consistency, access patterns, query language, transaction scope, scaling model, operational burden, backup/restore, latency, and cost. Do not choose a database only because it is familiar. Model a representative query and explain the index or partition key that serves it.</div>
+<pre><code>// DynamoDB access is designed around the partition key.
+await documentClient.send(new QueryCommand({
+	TableName: 'Orders',
+	KeyConditionExpression: 'customerId = :customerId',
+	ExpressionAttributeValues: { ':customerId': customerId },
+	Limit: 25
+}));</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you design CloudWatch monitoring for a Node service?</h3>
+<div class="q-answer">Publish structured application logs and metrics, collect container or Lambda logs, create dashboards, and alert on symptoms rather than only CPU. Track request count, error rate, p50/p95/p99 latency, saturation, memory, restarts, database connections, queue age, cache hit rate, and dependency failures. Correlate logs with request IDs and traces so an alarm leads to an actionable investigation.</div>
+<pre><code>// Structured log shape: searchable and safe to aggregate.
+console.log(JSON.stringify({
+	level: 'error',
+	event: 'order.create.failed',
+	requestId,
+	orderId,
+	errorCode: error.code,
+	durationMs
+}));
+
+// Never log passwords, access tokens, refresh tokens, or full payment data.</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you build a highly available AWS deployment?</h3>
+<div class="q-answer">Spread stateless compute across multiple Availability Zones behind a load balancer. Keep application instances replaceable, use managed or replicated data services, define health checks, autoscaling, backups, and tested restore procedures. Use queues to absorb bursts and circuit breakers to prevent one dependency from exhausting every worker. Define RTO and RPO before choosing the recovery design.</div>
+<pre><code>Route 53
+	-> CloudFront + WAF
+	-> ALB across AZ-a and AZ-b
+	-> ECS tasks across AZ-a and AZ-b
+			 |-> MongoDB Atlas replica set
+			 |-> ElastiCache Redis
+			 |-> SQS + workers across AZs
+			 |-> CloudWatch + X-Ray + alarms</code></pre>
+</div>
+</section>
+
+<section id="topic-html-css" class="day-section track-section">
+<h2 class="day-title">HTML5 + CSS3 — Frontend Fundamentals for Full-Stack Interviews</h2>
+<div class="q-card">
+<h3 class="q-title">What HTML5 fundamentals should a senior full-stack developer know?</h3>
+<div class="q-answer">Use semantic elements such as <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, and <code>footer</code> so structure is meaningful to browsers, search engines, and assistive technology. Understand forms, labels, validation attributes, buttons, links, tables, images with useful alt text, viewport behavior, and the difference between DOM content and presentation. A semantic document improves accessibility before JavaScript is added.</div>
+<div class="enhancement"><strong>Interview detail:</strong> Prefer a real button for an action and an anchor for navigation. Associate every form control with a label, keep heading levels logical, avoid clickable <code>div</code> elements, and use native validation as a first layer while still validating on the server.</div>
+<pre><code>&lt;main&gt;
+	&lt;article aria-labelledby="orders-title"&gt;
+		&lt;h1 id="orders-title"&gt;Orders&lt;/h1&gt;
+		&lt;form&gt;
+			&lt;label for="search"&gt;Search orders&lt;/label&gt;
+			&lt;input id="search" name="search" type="search" autocomplete="off" /&gt;
+			&lt;button type="submit"&gt;Search&lt;/button&gt;
+		&lt;/form&gt;
+	&lt;/article&gt;
+&lt;/main&gt;</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">Explain CSS box model, specificity, and responsive layout.</h3>
+<div class="q-answer">Every element has content, padding, border, and margin. Use <code>box-sizing: border-box</code> so declared width includes padding and border. Specificity decides which rule wins, but a maintainable system prefers low-specificity classes over deeply nested selectors and excessive <code>!important</code>. Build responsive layouts with fluid widths, Flexbox for one-dimensional alignment, Grid for two-dimensional composition, and media queries for meaningful layout changes.</div>
+<pre><code>* { box-sizing: border-box; }
+
+.dashboard {
+	display: grid;
+	grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+	gap: 1rem;
+}
+
+@media (max-width: 720px) {
+	.dashboard { grid-template-columns: 1fr; }
+}
+
+.card { padding: 1rem; border: 1px solid #d9e1e8; }</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you make a dashboard accessible and responsive?</h3>
+<div class="q-answer">Start with semantic structure and keyboard order. Make focus visible, give charts a text summary or data table, use sufficient contrast, avoid color as the only signal, provide labels and live-region messages, and test zoom and narrow widths. Responsive behavior should preserve the task: cards may stack, tables may become scrollable or transform into labelled rows, and controls must remain reachable without horizontal page overflow.</div>
+<div class="enhancement"><strong>Verification:</strong> Test keyboard-only navigation, browser zoom at 200%, a narrow mobile viewport, screen-reader landmarks, reduced motion, and automated accessibility checks. Then manually test the most important workflow.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What are CSS performance and compatibility concerns?</h3>
+<div class="q-answer">Avoid expensive layout thrashing, huge unoptimized images, deeply nested selectors, and animations that trigger layout on every frame. Prefer transforms and opacity for motion, use responsive images, keep critical CSS small, and test the browser support matrix. Progressive enhancement means the core workflow remains usable when a newer CSS feature is unavailable.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do HTML and CSS interact with Angular or React?</h3>
+<div class="q-answer">The framework renders a DOM tree, but browser semantics still matter. Component boundaries should produce valid HTML, stable labels, predictable focus, and controlled class or style changes. Do not use a framework abstraction to bypass native browser behavior. Keep layout and visual state in CSS where possible, while business state remains in the component or service model.</div>
+</div>
+</section>
+
+<section id="topic-jd-gaps" class="day-section track-section">
+<h2 class="day-title">JD GAP COVERAGE — Tools, Quality, Azure, Data and AI</h2>
+<div class="checklist"><strong>Additional job-description coverage:</strong><ul>
+<li>BullMQ, Python, Databricks, DataDog, Rancher, VeraCode</li>
+<li>GitHub Copilot and AI-assisted development governance</li>
+<li>Azure Functions, Service Bus, Key Vault, Container Apps and Application Insights</li>
+<li>OpenAPI, WebSockets, chart dashboards, contract testing and browser testing</li>
+<li>Backup, restore, platform evaluation and collaboration with analytics/business teams</li>
+</ul></div>
+<div class="q-card">
+<h3 class="q-title">What is BullMQ and when would you use it instead of Kafka or SQS?</h3>
+<div class="q-answer">BullMQ is a Redis-backed Node.js job queue for background work such as email, report generation, image processing, scheduled jobs, and retries. It provides delayed jobs, attempts, backoff, concurrency, worker processes, and job state. Kafka is better for durable event streams and replay across many consumers; SQS is a managed AWS queue that removes Redis queue operations from your team. Choose based on durability, ordering, replay, operational ownership, throughput, and scheduling needs.</div>
+<pre><code>import { Queue, Worker } from 'bullmq';
+
+const reports = new Queue('reports', { connection: redisConnection });
+await reports.add('monthly-report', { customerId }, {
+	attempts: 3,
+	backoff: { type: 'exponential', delay: 1000 },
+	removeOnComplete: true
+});
+
+new Worker('reports', async job =&gt; {
+	await generateReport(job.data.customerId);
+}, { connection: redisConnection, concurrency: 4 });</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How would you use Python or Databricks alongside a MEAN application?</h3>
+<div class="q-answer">Keep the Node application responsible for user-facing APIs and business workflows. Use Python or Databricks for data engineering, notebook analysis, batch transformations, feature generation, or analytics pipelines. Exchange data through governed tables, object storage, events, or a versioned API rather than coupling a request handler directly to a long-running notebook. Define ownership, schema, freshness, retry, access control, and observability.</div>
+<pre><code>Node API -> event/object storage -> Databricks job
+				 <- curated aggregate / feature table
+				 -> dashboard API with freshness timestamp</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What do DataDog, Application Insights, and CloudWatch provide?</h3>
+<div class="q-answer">They collect and correlate logs, metrics, traces, dashboards, and alerts. A strong implementation adds a request ID and trace context to every request, redacts secrets and personal data, records service and deployment version, and defines actionable alerts around latency, errors, saturation, queue age, and dependency health. Tools do not replace instrumentation or an incident runbook.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is VeraCode and where does it fit in CI/CD?</h3>
+<div class="q-answer">VeraCode represents application security scanning and policy enforcement in the delivery pipeline. Treat it as one signal alongside dependency scanning, secret scanning, SAST, DAST, container-image scanning, tests, and approval gates. Define severity thresholds, false-positive review, ownership, remediation SLAs, and evidence retention. Security checks should run before production promotion, not only after deployment.</div>
+<pre><code>PR -> lint -> unit tests -> SAST/SCA/secret scan
+	 -> build image -> image scan -> integration tests
+	 -> approval -> deploy -> smoke test -> monitor</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How can GitHub Copilot or another AI tool be used responsibly?</h3>
+<div class="q-answer">Use AI to accelerate scaffolding, tests, refactoring suggestions, documentation, and investigation, but treat generated code as untrusted input. Review correctness, security, licensing policy, data privacy, performance, and maintainability. Never paste secrets or confidential customer data. The developer remains responsible for tests, design decisions, code review, and production behavior. Mention prompt context, repository instructions, and human approval in an enterprise interview.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What Azure services should a MEAN developer know?</h3>
+<div class="q-answer">Azure App Service or Container Apps can host web APIs; AKS is Kubernetes; Azure Functions supports event-driven functions; Service Bus provides queues and topics; Key Vault stores secrets and certificates; Application Insights and Azure Monitor provide telemetry; Storage accounts provide blobs; Front Door or Application Gateway can provide edge routing and WAF; Azure DevOps manages source, work, artifacts, and pipelines. Explain the chosen service by workload, networking, identity, scaling, cost, and recovery.</div>
+<pre><code>Client -> Front Door / WAF -> Container Apps or App Service
+											 |-> Key Vault
+											 |-> Service Bus -> worker
+											 |-> MongoDB Atlas / Cosmos DB
+											 |-> Application Insights</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do OpenAPI, WebSockets, charts, and browser tests fit a production dashboard?</h3>
+<div class="q-answer">Use OpenAPI to document and validate REST contracts. Use WebSockets only when clients need server-pushed updates and define reconnect, authorization, ordering, and backpressure behavior. Render charts from typed view models with accessible summaries and loading/error/empty states. Cover pure transformations with unit tests, API contracts with integration tests, and critical user journeys with Playwright or Cypress.</div>
+<pre><code>// WebSocket lifecycle must include authentication and cleanup.
+const socket = new WebSocket(`${url}?token=${shortLivedToken}`);
+socket.onmessage = event =&gt; updateDashboard(JSON.parse(event.data));
+socket.onclose = () =&gt; scheduleReconnectWithBackoff();
+window.addEventListener('beforeunload', () =&gt; socket.close());</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do backup and recovery become an engineering responsibility?</h3>
+<div class="q-answer">Define RPO, the maximum acceptable data loss, and RTO, the maximum acceptable recovery time. Configure automated backups, retention, encryption, cross-region or cross-account protection where required, and restore tests. A backup that has never been restored is an assumption, not evidence. Document who triggers recovery, how applications reconnect, how queues are replayed, and how the business verifies correctness afterward.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you evaluate a new platform or technology?</h3>
+<div class="q-answer">Start with the business problem and measurable success criteria. Compare functional fit, latency, reliability, security, integration, developer experience, operational burden, cost, portability, support, and exit strategy. Build a small proof of concept using production-like failure cases, write down assumptions, involve product and analytics stakeholders, and make a reversible recommendation with evidence.</div>
+</div>
+</section>
+
+<section id="topic-fullstack-essentials" class="day-section track-section">
+<h2 class="day-title">FULL-STACK ESSENTIALS — GraphQL, SQL, Kubernetes and Security</h2>
+<div class="q-card">
+<h3 class="q-title">GraphQL vs REST: when would you choose GraphQL?</h3>
+<div class="q-answer">GraphQL lets a client request a shaped graph of data through a schema and resolver layer. It can reduce over-fetching and support complex screens, but it introduces resolver complexity, authorization at field boundaries, query-cost control, caching challenges, and the risk of accidental N+1 database calls. REST is often simpler for resource-oriented APIs, HTTP caching, uploads, and clear operational boundaries.</div>
+<div class="enhancement"><strong>Senior answer:</strong> Choose GraphQL when many clients need different projections of related data and the organization can operate schema governance, persisted queries, depth limits, batching, authorization, and resolver observability. Choose REST when predictable resources, independent caching, simple tooling, or strict service boundaries matter more.</div>
+<pre><code>const typeDefs = `
+	type Order { id: ID!, status: String!, total: Float! }
+	type Query { order(id: ID!): Order }
+`;
+
+const resolvers = {
+	Query: {
+		order: (_, { id }, context) =&gt; context.orderLoader.load(id)
+	}
+};
+
+// DataLoader batches related resolver reads and prevents N+1 queries.</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What SQL knowledge should a MongoDB full-stack developer still have?</h3>
+<div class="q-answer">Understand tables, primary and foreign keys, joins, transactions, isolation, indexes, normalization, aggregation, and query plans. Even when MongoDB is the primary database, SQL appears in analytics, reporting, legacy services, and interview system design. Explain when a relational model protects invariants better, especially for financial or strongly relational workflows.</div>
+<pre><code>SELECT customer_id, SUM(total) AS revenue
+FROM orders
+WHERE status = 'PAID'
+GROUP BY customer_id
+ORDER BY revenue DESC;
+
+CREATE INDEX orders_customer_status_idx
+ON orders (customer_id, status, created_at);</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you prevent SQL injection and NoSQL injection?</h3>
+<div class="q-answer">Never concatenate untrusted input into query strings or MongoDB operators. Use parameterized SQL, schema validation, allowlisted sort and filter fields, bounded pagination, least-privilege database users, and safe query builders. For MongoDB, reject unexpected object shapes where a scalar is expected and avoid passing the request body directly into a filter.</div>
+<pre><code>// Parameterized SQL: values remain data, not executable syntax.
+await client.query(
+	'SELECT * FROM users WHERE email = $1',
+	[email]
+);
+
+// Mongo: allowlist filter fields instead of spreading req.query.
+const filter = { status: allowedStatuses.includes(status) ? status : 'OPEN' };</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do Docker and Kubernetes fit a Node service?</h3>
+<div class="q-answer">Docker packages the application and runtime into an immutable image. Kubernetes schedules containers, provides service discovery, rolling deployments, readiness/liveness probes, configuration, secrets integration, and horizontal scaling. A senior answer also mentions resource requests and limits, graceful shutdown, logs, network policy, image scanning, and why a managed platform may be preferable to operating Kubernetes directly.</div>
+<pre><code># Dockerfile: reproducible production image
+FROM node:22-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+USER node
+CMD ["node", "server.js"]</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you threat-model a full-stack application using OWASP guidance?</h3>
+<div class="q-answer">Map assets, trust boundaries, actors, entry points, and high-impact actions. Use the OWASP Top 10 as a checklist, then consider broken access control, injection, authentication failures, sensitive-data exposure, insecure dependencies, SSRF, CSRF, XSS, misconfiguration, rate abuse, insecure deserialization, and vulnerable file uploads. For each threat define prevention, detection, safe failure, owner, and a test or monitoring signal.</div>
+<div class="enhancement"><strong>Interview structure:</strong> Browser and identity provider, API gateway, service-to-service calls, queues, database, cache, object storage, and CI/CD all have different trust boundaries. A UI guard is not authorization; every API and worker must enforce permission independently.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you balance performance, cost, and reliability?</h3>
+<div class="q-answer">Start with an SLO and workload measurement. Optimize the highest-cost bottleneck first: query shape, network payload, cache hit rate, CPU, memory, queue age, or unnecessary frontend work. Compare reserved or autoscaled capacity, managed services, caching, asynchronous work, and operational complexity. Never trade away security or required durability for a small unmeasured saving.</div>
+<pre><code>Decision record:
+Requirement: p95 API latency &lt; 300 ms
+Evidence: database query is 70% of request time
+Change: compound index + projection + cursor page
+Guardrail: error rate, write latency, memory, and monthly cost
+Proof: load test before and after at production-like volume</code></pre>
+</div>
+</section>
+
+<!-- COMPLETE MEAN TRACK -->
+<section id="mean-track" class="day-section track-section">
+<h2 class="day-title">COMPLETE MEAN TRACK — Interview-Ready Depth</h2>
+<div class="checklist"><strong>How to use this track:</strong><ul>
+<li>Answer the first paragraph in 60 seconds.</li>
+<li>Use the step-by-step explanation when the interviewer asks, "How exactly?"</li>
+<li>Use the trade-off and failure section to demonstrate five-year experience.</li>
+</ul></div>
+<div class="flow-diagram" aria-label="MEAN architecture diagram">
+<div class="flow-step">Angular<br><small>components, signals, RxJS</small></div>
+<div class="flow-step">HTTPS API<br><small>JWT, validation, REST</small></div>
+<div class="flow-step">Node + Express<br><small>business rules, streams</small></div>
+<div class="flow-step">MongoDB + Redis<br><small>source of truth, cache</small></div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Explain an Angular request from click to database and back.</h3>
+<div class="q-answer"><strong>Short answer:</strong> A component event updates a signal or Observable, an HTTP service sends a typed request through an interceptor, Express middleware authenticates and validates it, the service applies business rules, MongoDB persists the authoritative state, and the response flows back through the interceptor into the component state.</div>
+<div class="enhancement"><strong>Step-by-step:</strong> (1) The component emits intent, not database logic. (2) A facade/service owns the request and loading/error state. (3) The interceptor adds the access token and correlation ID. (4) The API validates untrusted input before calling the use case. (5) The repository uses an index matching the query. (6) The response is mapped to a view model. (7) The UI renders success, empty, loading, and failure states. Mention timeout, retry policy, authorization, metrics, and cancellation.</div>
+<pre><code>Angular component
+	-> Facade: loadOrders()
+	-> HttpClient + interceptor: Authorization, traceparent
+	-> Express route -> schema validation -> use case
+	-> repository -> MongoDB index scan
+	<- DTO: { items, nextCursor }
+	<- signal update -> template renders</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How do you design Angular state for a dashboard?</h3>
+<div class="q-answer">Separate server state, URL state, local UI state, and derived state. Server state belongs in a cacheable service or query layer; filters belong in the route so the view is shareable; selected-tab and panel state can remain local; totals and permissions should be computed rather than copied. Use Signals for synchronous view state and RxJS for cancellation, polling, websockets, and event composition.</div>
+<div class="enhancement"><strong>Senior trade-off:</strong> Avoid a single global store by default. A store is justified when multiple distant features need the same transitions, persistence, or time-travel debugging. Always define ownership, update events, cache invalidation, and teardown.</div>
+<pre><code>query$ = combineLatest([routeParams$, filter$]).pipe(
+	debounceTime(150),
+	distinctUntilChanged(isEqual),
+	switchMap(query => api.orders(query).pipe(
+		catchError(error => of({ items: [], error }))
+	)),
+	shareReplay({ bufferSize: 1, refCount: true })
+);</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How do you secure a MEAN application end to end?</h3>
+<div class="q-answer">Threat-model the browser, API, identity provider, database, queues, and deployment pipeline. Use HTTPS, strict CORS, output encoding, CSP, secure and HttpOnly cookies when using cookie auth, CSRF protection for cookie mutations, short-lived access tokens, refresh-token rotation, server-side authorization, schema validation, rate limits, secret management, dependency scanning, audit logs, and least-privilege database users.</div>
+<div class="enhancement"><strong>Interview distinction:</strong> Authentication answers "who are you?" Authorization answers "may you do this?" A route guard and hidden button are user-experience controls only; every API and message consumer must enforce permissions independently.</div>
+<pre><code>app.use(helmet());
+app.use(cors({ origin: trustedOrigins, credentials: true }));
+app.use('/api', rateLimit({ windowMs: 60_000, limit: 100 }));
+app.post('/orders', requireAuth, validate(createOrderSchema), createOrder);
+// createOrder still checks ownership and business permission.</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How do you optimize a slow MongoDB endpoint?</h3>
+<div class="q-answer"><strong>Dry run:</strong> First capture p50, p95, error rate, query duration, and payload size. Reproduce the exact query shape. Run <code>explain("executionStats")</code>. Compare <code>totalKeysExamined</code> and <code>totalDocsExamined</code> with returned documents. Add a selective compound index for equality and sort, project only needed fields, replace skip pagination with a cursor, and re-measure under realistic data volume.</div>
+<pre><code>// Query shape: equality + sort + bounded page
+db.orders.createIndex({ customerId: 1, createdAt: -1, _id: -1 });
+db.orders.find({
+	customerId,
+	createdAt: { $lt: cursorDate }
+}, { _id: 1, status: 1, total: 1, createdAt: 1 })
+.sort({ createdAt: -1, _id: -1 }).limit(25)
+.explain('executionStats');</code></pre>
+<div class="enhancement"><strong>Do not overclaim:</strong> An index is not automatically an improvement. It consumes memory and slows writes. Confirm the winning plan, workload selectivity, and before/after measurements.</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Explain cache-aside and its failure modes with a dry run.</h3>
+<div class="q-answer">Request 1 checks Redis and misses, reads MongoDB, then writes the result with a TTL. Request 2 reads Redis and avoids MongoDB. On an update, write MongoDB first, then invalidate the key. If invalidation fails, TTL limits staleness and a versioned key or event-driven invalidation repairs the cache. Redis must never be the only source of truth unless the business explicitly accepts that durability model.</div>
+<pre><code>async function getUser(id) {
+	const key = `user:v2:${id}`;
+	const cached = await redis.get(key);
+	if (cached) return JSON.parse(cached);
+
+	const user = await users.findOne({ _id: id });
+	if (user) await redis.set(key, JSON.stringify(user), { EX: 300 });
+	return user;
+}
+
+// Write path: DB first, then invalidate. Monitor cache errors separately.</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How would you make a Node service production-ready?</h3>
+<div class="q-answer">Define configuration at startup, validate it, expose health and readiness endpoints, use structured logs, propagate request and trace IDs, set timeouts on every outbound call, handle process signals, cap payloads, avoid synchronous CPU work, use a process manager or container, and publish latency/error/throughput metrics. Add graceful shutdown that stops accepting traffic, drains work, closes consumers and database connections, then exits.</div>
+<pre><code>const server = app.listen(PORT);
+let shuttingDown = false;
+process.on('SIGTERM', async () => {
+	if (shuttingDown) return;
+	shuttingDown = true;
+	server.close();
+	await consumer.disconnect();
+	await mongoClient.close();
+	process.exitCode = 0;
+});</code></pre>
+</div>
+</section>
+
+<!-- COMPLETE MERN TRACK -->
+<section id="mern-track" class="day-section track-section">
+<h2 class="day-title">COMPLETE MERN TRACK — React + Node + MongoDB</h2>
+<div class="q-card">
+<h3 class="q-title">How do you choose React state boundaries in a senior application?</h3>
+<div class="q-answer">Keep state as close as possible to the feature that owns it. Use component state for local interaction, context for stable cross-cutting dependencies, a client store for coordinated client workflows, and a server-state library for remote data caching. Do not mirror every API response into a global store. Define loading, stale, error, optimistic-update, and rollback behavior explicitly.</div>
+<pre><code>// Keep derived values derived; do not store filteredOrders separately.
+const filteredOrders = useMemo(
+	() => orders.filter(order => order.status === status),
+	[orders, status]
+);
+
+// Measure first: memoization is a tool, not a default architecture.</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is the difference between optimistic and pessimistic updates?</h3>
+<div class="q-answer">Optimistic UI updates immediately and keeps a rollback snapshot while the server confirms. It improves perceived latency but requires conflict handling, idempotency, and an honest failure state. Pessimistic UI waits for the server and is safer for irreversible actions such as payments or inventory allocation. A senior answer chooses per operation, not per framework.</div>
+<pre><code>const previous = queryClient.getQueryData(['order', id]);
+queryClient.setQueryData(['order', id], draft => ({ ...draft, status: 'CANCELLED' }));
+try { await api.cancelOrder(id); }
+catch (error) {
+	queryClient.setQueryData(['order', id], previous);
+	throw error;
+}</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do TypeScript types and runtime validation work together?</h3>
+<div class="q-answer">TypeScript protects code during development and disappears at runtime. Request bodies, query strings, webhook payloads, and queue messages remain untrusted. Parse them with a runtime schema, return a typed value only after validation, and keep API contracts versioned. Treat <code>any</code> as a deliberate boundary exception that should be isolated and documented.</div>
+<pre><code>const OrderInput = z.object({
+	sku: z.string().min(1),
+	quantity: z.number().int().positive()
+});
+
+const input = OrderInput.parse(req.body); // runtime proof before business logic
+const order = await orderService.create(input);</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you improve React performance without guessing?</h3>
+<div class="q-answer">Measure with browser performance tools and the React profiler. Identify whether the cost is JavaScript, rendering, layout, network, or data volume. Virtualize long lists, paginate, split bundles, defer non-critical work, stabilize identity only where useful, cache server data, optimize images, and verify with p95 interaction latency and bundle metrics.</div>
+</div>
+</section>
+
+<!-- CLOUD, DEVOPS AND QUALITY -->
+<section id="topic-cloud" class="day-section track-section">
+<h2 class="day-title">CLOUD + DEVOPS — Azure, AWS, Git, CI/CD and Operations</h2>
+<div class="flow-diagram" aria-label="cloud delivery diagram">
+<div class="flow-step">Git PR<br><small>review + branch policy</small></div>
+<div class="flow-step">CI<br><small>lint, test, scan, build</small></div>
+<div class="flow-step">Artifact<br><small>immutable image/package</small></div>
+<div class="flow-step">CD<br><small>dev -&gt; stage -&gt; production</small></div>
+</div>
+<div class="q-card">
+<h3 class="q-title">Explain a strong CI/CD pipeline for a MEAN or MERN service.</h3>
+<div class="q-answer">A pull request runs formatting, linting, unit tests, type checks, dependency and secret scans, build validation, and targeted integration tests. A merge creates a versioned immutable artifact. Deployment promotes the same artifact through environments with approvals, health checks, smoke tests, telemetry gates, and rollback. Secrets come from a managed secret store, never from source or logs.</div>
+<pre><code>Pull request
+	-> lint + typecheck + unit tests
+	-> integration tests + npm audit/SCA + secret scan
+	-> build image tagged with commit SHA
+	-> push registry
+	-> deploy dev -> smoke test -> approval -> production
+	-> monitor SLO -> rollback if health gate fails</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">What should you compare between Azure and AWS?</h3>
+<div class="q-answer">Compare the capability, not only product names. Azure App Service or Container Apps and AWS ECS or App Runner can host containers; AKS and EKS provide Kubernetes; Azure Key Vault and AWS Secrets Manager store secrets; Azure Monitor/Application Insights and CloudWatch provide telemetry; Azure DevOps and CodePipeline/CodeBuild provide delivery. In an interview state the chosen service, networking, identity, scaling, cost, backup, and recovery assumptions.</div>
+<pre><code>Cloud-neutral design:
+	DNS/CDN -> WAF -> load balancer -> stateless containers
+	-> managed Mongo-compatible data store / MongoDB Atlas
+	-> Redis cache
+	-> broker
+	-> logs, metrics, traces, alerts
+
+Identity and secrets remain platform-managed, not baked into images.</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How do you use Git safely in a team?</h3>
+<div class="q-answer">Use small focused branches, meaningful commits, pull-request review, protected main branches, required checks, signed or traceable releases, and a clear revert strategy. Rebase locally to reduce noise when appropriate, but avoid rewriting shared history. Resolve conflicts by understanding behavior, not by accepting one side blindly.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What is your deployment rollback and database migration strategy?</h3>
+<div class="q-answer">Application artifacts should be immutable and independently rollbackable. Database changes should be backward-compatible: expand with new fields or tables, deploy code that reads both versions, backfill, switch reads, then contract old fields later. Never assume rolling back application code can undo an irreversible schema change.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What are logs, metrics, traces and SLOs?</h3>
+<div class="q-answer">Logs explain individual events, metrics show aggregate behavior, and traces connect one request across services. Define an SLI such as successful request percentage or p95 latency, an SLO target, and an alert that is actionable. Include correlation IDs, user-safe error messages, redaction of secrets and personal data, retention policy, and an incident runbook.</div>
+</div>
+</section>
+
+<section id="topic-quality" class="day-section track-section">
+<h2 class="day-title">QUALITY + INTERVIEW EXECUTION — What Makes an Answer Senior?</h2>
+<div class="q-card">
+<h3 class="q-title">How do you test a feature across the full stack?</h3>
+<div class="q-answer">Start with pure unit tests for transformations and business rules. Add integration tests against a real or faithful database boundary. Add contract tests for API and events. Use a small number of end-to-end tests for critical journeys. For every feature test authorization, invalid input, timeouts, retries, duplicate messages, empty states, concurrency, and rollback behavior. Keep tests deterministic and clean data between cases.</div>
+<pre><code>Test pyramid:
+many fast unit tests
+			/
+integration: API + database + broker boundary
+		/
+few browser journeys: login -> create order -> confirmation</code></pre>
+</div>
+<div class="q-card">
+<h3 class="q-title">How should you answer a system-design question?</h3>
+<div class="q-answer"><strong>Say this sequence aloud:</strong> clarify users and scale; define functional and non-functional requirements; estimate traffic and storage; sketch APIs; model data around access patterns; choose synchronous versus asynchronous communication; design failure handling; add security; explain scaling and consistency; finish with observability, deployment, and trade-offs. Ask what matters most before drawing a large architecture.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">How should you answer behavioral questions for a five-year role?</h3>
+<div class="q-answer">Use STAR with ownership and evidence. Explain the customer or team impact, your exact decision, alternatives considered, measurable result, and what you changed afterward. Prepare stories for a production incident, a performance improvement, a disagreement, a missed estimate, mentoring, an ambiguous requirement, and a security or quality improvement.</div>
+</div>
+<div class="q-card">
+<h3 class="q-title">What should you say when you have not used a technology?</h3>
+<div class="q-answer">Be direct: "I have not used that in production. I understand the adjacent concept, and I would evaluate it by checking the delivery guarantee, failure model, operational burden, security, cost, and a small proof of concept." Then connect it to something you have used. This is stronger than inventing experience.</div>
+</div>
+</section>
+
+<!-- MERN BRIDGE AND SENIOR-LEVEL EXTENSIONS -->
+<section id="topic-mern" class="day-section">
+<h2 class="day-title">MERN BRIDGE — React + TypeScript + Full-Stack Design</h2>
+<div class="checklist"><strong>Added senior coverage:</strong><ul>
+<li>React rendering, hooks, Server Components awareness and state boundaries</li>
+<li>TypeScript generics, narrowing, utility types and API contracts</li>
+<li>Testing strategy, accessibility, performance and frontend security</li>
+<li>System design trade-offs for a production-grade MERN application</li>
+</ul></div>
+
+<div class="flow-diagram" aria-label="MERN request flow diagram">
+<div class="flow-step">React UI<br><small>state + accessibility</small></div>
+<div class="flow-step">API / BFF<br><small>auth + validation</small></div>
+<div class="flow-step">Node services<br><small>business rules + events</small></div>
+<div class="flow-step">MongoDB / Redis<br><small>source of truth + cache</small></div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How does React rendering work?</h3>
+<div class="q-answer">React builds an element tree, compares the next tree with the previous one, and commits the minimum necessary DOM changes. Rendering should stay pure; side effects belong in event handlers or effects. In a senior answer, connect re-render triggers to state ownership, stable keys and measured performance.</div>
+<div class="enhancement"><strong>Senior insight:</strong> Do not say that React "updates the virtual DOM" and stop there. Explain render, reconciliation, commit, scheduling, and how memoization is only useful when profiling shows a real cost.</div>
+<pre><code>function Orders({ orders }) {
+	return orders.map(order =&gt; &lt;OrderRow key={order.id} order={order} /&gt;);
+}
+
+// Stable keys preserve row identity across insertions and sorting.</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">useEffect versus event handlers?</h3>
+<div class="q-answer">An event handler describes something the user did. An effect synchronizes React with an external system such as a subscription, timer, browser API or network cache. If a value can be calculated during render, calculate it rather than storing duplicated state in an effect.</div>
+<pre><code>useEffect(() =&gt; {
+	const socket = connect(roomId);
+	socket.on('message', onMessage);
+	return () =&gt; socket.close();
+}, [roomId, onMessage]);</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Context, Redux and server-state libraries: when do you choose each?</h3>
+<div class="q-answer">Context is good for relatively stable cross-cutting values such as theme or locale. Redux-style stores help when many features need explicit, inspectable client state and action history. Server-state tools handle caching, deduplication, retries, invalidation and background refresh for API data. Keep server state out of a client store unless there is a clear reason.</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What TypeScript features matter most in a Node API?</h3>
+<div class="q-answer">Strict null checks, discriminated unions, generics, unknown instead of any, typed error boundaries and shared request/response contracts reduce runtime surprises. TypeScript does not validate untrusted JSON at runtime, so pair types with a schema validator.</div>
+<pre><code>type Result&lt;T&gt; =
+	| { ok: true; value: T }
+	| { ok: false; code: 'NOT_FOUND' | 'INVALID' };
+
+function unwrap&lt;T&gt;(result: Result&lt;T&gt;): T {
+	if (!result.ok) throw new Error(result.code);
+	return result.value;
+}</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How do you test a full-stack feature?</h3>
+<div class="q-answer">Use a pyramid: unit tests for pure logic, integration tests for the API and database boundary, contract tests for service messages, and a small number of browser tests for critical user journeys. Test failure behavior, authorization, retries and idempotency, not only the happy path.</div>
+<pre><code>test('rejects an order without stock', async () =&gt; {
+	await seedProduct({ sku: 'A1', stock: 0 });
+	const response = await request(app)
+		.post('/orders')
+		.send({ sku: 'A1', quantity: 1 });
+	expect(response.status).toBe(409);
+});</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How would you design a production MERN order platform?</h3>
+<div class="q-answer">Start with traffic, latency, consistency, security and recovery requirements. Keep the first version modular rather than splitting everything into services. Use React or Angular for the UI, a Node API boundary with schema validation, MongoDB collections designed around access patterns, Redis for non-authoritative cache data, an outbox for reliable events, and observability from the first deployment.</div>
+<pre><code>Browser
+	| HTTPS + access token
+	v
+Web app --&gt; API/BFF --&gt; Order module --&gt; MongoDB
+												 |              \
+												 v               --&gt; Redis cache
+											 Outbox --&gt; Broker --&gt; Inventory / Notifications
+
+Every hop carries: requestId, userId, traceId and an idempotency key.</code></pre>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">What frontend security topics should a senior candidate mention?</h3>
+<div class="q-answer">Use output encoding and safe DOM APIs, a restrictive Content Security Policy, secure cookies where appropriate, CSRF protection for cookie-authenticated mutations, dependency scanning, trusted types where available, strict CORS, server-side authorization and careful error messages. Never treat a hidden button or route guard as authorization.</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">How do you make an application accessible?</h3>
+<div class="q-answer">Use semantic HTML first, keyboard navigation, visible focus, labels tied to controls, meaningful headings, sufficient contrast, text alternatives and correct live-region behavior. Test with keyboard-only navigation and automated checks, then verify important flows with assistive technology.</div>
+</div>
+
+<div class="q-card">
+<h3 class="q-title">Tell me about a difficult production incident.</h3>
+<div class="q-answer"><strong>Use STAR:</strong> Situation and customer impact, Task and your ownership, Action with the evidence and trade-offs, Result with measurable improvement, then learning and prevention. A senior answer includes the timeline, mitigation, root cause, monitoring gap and the regression or runbook added afterward.</div>
+</div>
+</section>
+
+<!-- FRAMEWORKS & FINAL CHECKLIST -->
+<div class="framework-box">
+<h3>Final 40-Minute Mockspan_431span_431</h3>
+<ul style="padding-left: 20px; font-size: 0.85rem;">
+<li>90-second self introductionspan_432span_432</li>
+<li>Explain current project architecturespan_433span_433</li>
+<li>Explain exact personal responsibilityspan_434span_434</li>
+<li>Signals vs RxJS with real examplesspan_435span_435</li>
+<li>switchMap/mergeMap/concatMap/exhaustMapspan_436span_436</li>
+<li>JWT access/refresh + RBACspan_437span_437</li>
+<li>Secure Express APIspan_438span_438</li>
+<li>Design users/orders MongoDB schema + indexesspan_439span_439</li>
+<li>Aggregation: match + lookup + unwind + groupspan_440span_440</li>
+<li>Redis use case + Redis failure planspan_441span_441</li>
+<li>Order → payment → inventory designspan_442span_442</li>
+<li>REST vs Kafkaspan_443span_443</li>
+<li>Duplicate Kafka eventspan_444span_444</li>
+<li>Circuit breaker + retry/backoff + DLQ + Sagaspan_445span_445</li>
+<li>Solve Two Sum + sliding window aloudspan_446span_446</li>
+<li>Explain CI/CD + Azure DevOpsspan_447span_447</li>
+<li>Production incident + root causespan_448span_448</li>
+<li>Performance optimization with measurable impactspan_449span_449</li>
+<li>Difficult team situation using STARspan_450span_450</li>
+<li>Why PwC / why this rolespan_451span_451</li>
+</ul>
+
+<h3 style="margin-top: 20px;">Senior Answer Frameworkspan_452span_452</h3>
+<p style="font-size: 0.85rem;">
+Coding: <strong>clarify → brute force → optimize → code → test → complexity</strong>span_453span_453.<br>
+Architecture: <strong>requirements → APIs → data → communication → failure handling → security → scaling → observability → deployment</strong>span_454span_454.<br>
+Behavioral: <strong>Situation → Task → Action → Result → learning</strong>span_455span_455.
+</p>
+</div>
+
+<div class="checklist" style="border-left-color: var(--pwc-black);">
+<strong>Final Night-Before Checklistspan_456span_456:</strong>
+<ul>
+<li>Project architecture from memoryspan_457span_457</li>
+<li>Three STAR stories readyspan_458span_458</li>
+<li>Production bug/root-cause story readyspan_459span_459</li>
+<li>Performance improvement with measurable result readyspan_460span_460</li>
+<li>Signals/RxJS/operators clearspan_461span_461</li>
+<li>JWT/RBAC clearspan_462span_462</li>
+<li>MongoDB indexes/aggregation clearspan_463span_463</li>
+<li>Redis cache/failure clearspan_464span_464</li>
+<li>Kafka/idempotency/DLQ/Saga/circuit breaker clearspan_465span_465</li>
+<li>At least 4 DSA patterns can be codedspan_466span_466</li>
+<li>Azure/CI-CD clearspan_467span_467</li>
+<li>Do not bluff unknown technologies; state assumptionsspan_468span_468</li>
+<li>Think aloud while codingspan_469span_469</li>
+<li>Ask clarifying questions before designspan_470span_470</li>
+<li>Keep first answer concise and expand if askedspan_471span_471</li>
+</ul>
+</div>
+</div>
+<button class="scroll-top" id="scrollTop" type="button" aria-label="Scroll to top" title="Scroll to top">↑</button>
+<script>
+(() => {
+	const root = document.body;
+
+	// The supplied PDF-to-HTML export inserted citation placeholders into text
+	// nodes. Removing them here keeps the original learning content intact.
+	const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+	const textNodes = [];
+	let node;
+	while ((node = walker.nextNode())) {
+		if (!node.parentElement.closest('script,style')) textNodes.push(node);
+	}
+	textNodes.forEach(textNode => {
+		textNode.nodeValue = textNode.nodeValue
+			.replace(/\[?span_\d+\]?\((?:start_span|end_span)\)/g, '')
+			.replace(/span_\d+/g, '')
+			.replace(/\b(?:start_span|end_span)\b/g, '')
+			.replace(/\blatex\b/g, '$');
+	});
+
+	const cards = [...document.querySelectorAll('.q-card')];
+	const sections = [...document.querySelectorAll('.day-section')];
+	const viewedCards = new Set();
+	const filterCount = document.getElementById('filterCount');
+	const trackFilter = document.getElementById('trackFilter');
+	const priorityFilter = document.getElementById('priorityFilter');
+	const subjectFilter = document.getElementById('subjectFilter');
+
+	const classifyCard = card => {
+		const text = card.textContent.toLowerCase();
+		const sectionId = card.closest('.day-section')?.id || '';
+		const mean = /angular|mean|rxjs|signal|authguard|reactive form/.test(text) || ['day2', 'mean-track'].includes(sectionId);
+		const mern = /react|mern|jsx|hook|typescript/.test(text) || ['mern-track', 'topic-react', 'topic-mern'].includes(sectionId);
+		const subject = /dsa|two sum|binary|substring|interval|parenthes|kth|tree|island|linked list|array/.test(text) ? 'dsa'
+			: /aws|azure|devops|docker|kubernetes|cloud|git|pipeline|deployment/.test(text) ? 'cloud'
+			: /mongo|redis|database|sql|cache|index|aggregation|dynamodb/.test(text) ? 'data'
+			: /jwt|oauth|security|xss|csrf|owasp|password|cors/.test(text) ? 'security'
+			: /angular|react|html|css|frontend|form|rxjs|signal|component/.test(text) ? 'frontend' : 'backend';
+		const priority = ['day1', 'day2', 'day3', 'day4', 'topic-node-production', 'topic-advanced-js', 'topic-scenarios'].includes(sectionId) ? 'high'
+			: ['mean-track', 'mern-track', 'topic-aws', 'topic-react', 'topic-angular-deep', 'topic-dsa-extra'].includes(sectionId) ? 'medium' : 'low';
+		return { mean, mern, subject, priority };
+	};
+
+	cards.forEach(card => {
+		const tags = classifyCard(card);
+		card.dataset.mean = String(tags.mean);
+		card.dataset.mern = String(tags.mern);
+		card.dataset.subject = tags.subject;
+		card.dataset.priority = tags.priority;
+		const badge = document.createElement('span');
+		badge.className = `priority-badge priority-${tags.priority}`;
+		badge.textContent = `${tags.priority} priority`;
+		card.querySelector('.q-title')?.appendChild(badge);
+	});
+
+	const detailFor = text => {
+		const value = text.toLowerCase();
+		if (value.includes('angular') || value.includes('rxjs') || value.includes('signal') || value.includes('form')) {
+			return {
+				label: 'Angular senior expansion',
+				points: [
+					'Start with ownership: explain which component, facade, service, Signal, or Observable owns the state and why that boundary prevents duplicate requests or accidental mutation.',
+					'Explain the runtime flow from template event to operator pipeline or Signal update, HTTP interceptor, API response, loading state, empty state, and error state.',
+					'Name the trade-off: Signals are excellent for synchronous derived UI state, while RxJS is stronger for cancellation, retries, websockets, polling, and event composition.',
+					'Mention failure handling: teardown subscriptions, cancel stale requests, prevent double-submit, handle 401 refresh safely, validate server errors, and preserve accessibility.',
+					'Close with proof: Angular DevTools, browser Network and Performance panels, component tests, marble tests for operators, and measurable request/render improvements.'
+				]
+			};
+		}
+		if (value.includes('react') || value.includes('hook') || value.includes('jsx')) {
+			return {
+				label: 'React senior expansion',
+				points: [
+					'Define the state owner first: local state for local interaction, Context for stable cross-cutting values, a client store for coordinated workflows, and a server-state cache for API data.',
+					'Describe render, reconciliation, and commit separately; keep rendering pure and reserve effects for synchronization with external systems.',
+					'Explain identity: stable keys, object references, callbacks, memoization, and why profiling must prove a performance problem before adding complexity.',
+					'Cover production behavior: loading, stale, empty, error, retry, cancellation, optimistic rollback, route protection, accessibility, and error boundaries.',
+					'Validate with React Profiler, browser performance traces, component tests, API contract tests, and an interaction-latency or bundle-size measurement.'
+				]
+			};
+		}
+		if (value.includes('aws') || value.includes('ec2') || value.includes('s3') || value.includes('vpc') || value.includes('cloudwatch') || value.includes('lambda')) {
+			return {
+				label: 'AWS server expansion',
+				points: [
+					'Place the service in the request path: DNS and CloudFront at the edge, WAF and ALB for protection and routing, private compute for Node, and managed data or queues behind controlled network rules.',
+					'Explain identity and network boundaries: IAM roles instead of access keys, private subnets for workloads, security groups for service access, NAT only for controlled outbound traffic, and least privilege everywhere.',
+					'Choose the service by workload: EC2 for host control, ECS/Fargate for containers, EKS for Kubernetes needs, Lambda for short event-driven tasks, S3 for durable objects, SQS for buffering, and CloudWatch for evidence.',
+					'Cover failure modes: unhealthy targets, deployment rollback, AZ failure, queue buildup, exhausted database connections, cache loss, secret rotation, throttling, backup restore, and cost runaway.',
+					'Close with operations: health checks, autoscaling signals, p95 latency, error rate, queue age, alarms, traces, immutable artifacts, disaster-recovery objectives, and an incident runbook.'
+				]
+			};
+		}
+		if (value.includes('mongo') || value.includes('index') || value.includes('aggregation') || value.includes('redis') || value.includes('cache')) {
+			return {
+				label: 'Data-layer senior expansion',
+				points: [
+					'Begin with access patterns and invariants: model data around the reads and writes the product needs, then decide what must be authoritative and what may be cached.',
+					'For MongoDB, explain selectivity, equality/sort/range ordering, projection, cursor pagination, aggregation stage order, and why explain plans must be measured.',
+					'For Redis, explain cache-aside, TTL, key versioning, invalidation ownership, stampede protection, timeouts, and the database fallback when Redis is unavailable.',
+					'Cover correctness: duplicate writes, transactions, unique constraints, stale reads, concurrent updates, partial failures, and recovery after a process crash.',
+					'Prove the change with executionStats, p95 query latency, keys/docs examined, cache hit rate, database load, and a regression test at realistic data volume.'
+				]
+			};
+		}
+		if (value.includes('kafka') || value.includes('rabbit') || value.includes('microservice') || value.includes('saga') || value.includes('circuit')) {
+			return {
+				label: 'Distributed-systems senior expansion',
+				points: [
+					'Identify the business boundary and decide whether the interaction needs an immediate synchronous response or can become an asynchronous event.',
+					'Explain delivery semantics, partition or queue ordering, consumer groups, retries with bounded backoff, idempotency keys, deduplication, and dead-letter handling.',
+					'For a workflow, describe local transactions and compensating actions rather than pretending one database transaction spans every service.',
+					'Cover resilience: timeouts, circuit breakers, bulkheads, safe fallbacks, backpressure, poison messages, schema compatibility, and replay strategy.',
+					'Close with observability: correlation and trace IDs, consumer lag, throughput, error rate, retry count, DLQ depth, SLOs, dashboards, and an operator runbook.'
+				]
+			};
+		}
+		if (value.includes('two sum') || value.includes('binary search') || value.includes('substring') || value.includes('interval') || value.includes('parenthes') || value.includes('kth') || value.includes('tree') || value.includes('island') || value.includes('linked list') || value.includes('array')) {
+			return {
+				label: 'DSA interview expansion',
+				points: [
+					'Clarify input constraints, duplicates, ordering, mutation rules, expected return format, and whether the kth value counts duplicates.',
+					'State the brute-force idea first, identify its bottleneck, then name the invariant that the optimized data structure preserves on every iteration.',
+					'Dry-run a small example line by line, showing pointer positions, map contents, window boundaries, stack contents, heap contents, or queue state.',
+					'Check edge cases: empty input, one item, duplicate values, negative values, already sorted input, no solution, malformed brackets, and maximum constraints.',
+					'Finish with exact time and space complexity and explain why the chosen approach is appropriate for the stated constraints.'
+				]
+			};
+		}
+		return {
+			label: 'Senior answer expansion',
+			points: [
+				'Define the concept in one sentence, then connect it to a real MEAN or MERN request, component, service, database operation, or deployment step.',
+				'Explain the mechanism in order: inputs, state or data flow, decision points, output, and what can happen concurrently or asynchronously.',
+				'Give a small implementation example and name the alternative approach you rejected, including the reason and trade-off.',
+				'Cover production behavior: validation, security, failure handling, performance, observability, testing, and how you would debug it under pressure.',
+				'End with a measurable result or verification method instead of stopping at a definition.'
+			]
+		};
+	};
+
+	cards.forEach(card => {
+		if (card.querySelector('.deep-answer')) return;
+		const answer = card.querySelector('.q-answer');
+		if (!answer) return;
+		const detail = detailFor(card.textContent);
+		const panel = document.createElement('div');
+		panel.className = 'deep-answer';
+		panel.innerHTML = `<h4>${detail.label}: how to answer beyond the definition</h4><ul>${detail.points.map(point => `<li>${point}</li>`).join('')}</ul>`;
+		answer.insertAdjacentElement('afterend', panel);
+	});
+
+	cards.forEach(card => {
+		card.querySelectorAll('.deep-answer, .enhancement').forEach(panel => {
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'detail-toggle';
+			button.textContent = panel.classList.contains('deep-answer') ? 'Show detailed explanation' : 'Show insight / dry run';
+			button.setAttribute('aria-expanded', 'false');
+			button.addEventListener('click', () => {
+				const open = panel.classList.toggle('detail-open');
+				button.classList.toggle('detail-open', open);
+				button.setAttribute('aria-expanded', String(open));
+				button.textContent = open
+					? (panel.classList.contains('deep-answer') ? 'Hide detailed explanation' : 'Hide insight / dry run')
+					: (panel.classList.contains('deep-answer') ? 'Show detailed explanation' : 'Show insight / dry run');
+			});
+			panel.insertAdjacentElement('beforebegin', button);
+		});
+	});
+	const progressBar = document.getElementById('progressBar');
+	const progressText = document.getElementById('progressText');
+	const scrollTop = document.getElementById('scrollTop');
+	const updateProgress = () => {
+		const max = document.documentElement.scrollHeight - window.innerHeight;
+		const scrollPercent = max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0;
+		const questionPercent = cards.length ? Math.round((viewedCards.size / cards.length) * 100) : 0;
+		const percent = Math.max(scrollPercent, questionPercent);
+		progressBar.style.width = percent + '%';
+		progressText.textContent = percent + '% explored';
+		scrollTop.classList.toggle('visible', window.scrollY > 420);
+	};
+	window.addEventListener('scroll', updateProgress, { passive: true });
+	if ('IntersectionObserver' in window) {
+		const questionObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) viewedCards.add(entry.target);
+			});
+			updateProgress();
+		}, { threshold: 0.2 });
+		cards.forEach(card => questionObserver.observe(card));
+	}
+	updateProgress();
+
+	document.getElementById('focusMode').addEventListener('click', event => {
+		const active = document.body.classList.toggle('focus-mode');
+		event.currentTarget.classList.toggle('active');
+		if (active) cards[0]?.querySelector('.q-title')?.focus();
+	});
+	document.getElementById('expandCode').addEventListener('click', event => {
+		const expanded = !event.currentTarget.classList.contains('active');
+		cards.forEach(card => {
+			card.classList.toggle('answer-expanded', expanded);
+			card.querySelectorAll('.detail-toggle').forEach(button => {
+				button.classList.toggle('detail-open', expanded);
+				button.setAttribute('aria-expanded', String(expanded));
+				button.textContent = expanded
+					? (button.nextElementSibling.classList.contains('deep-answer') ? 'Hide detailed explanation' : 'Hide insight / dry run')
+					: (button.nextElementSibling.classList.contains('deep-answer') ? 'Show detailed explanation' : 'Show insight / dry run');
+			});
+		});
+		event.currentTarget.classList.toggle('active');
+		event.currentTarget.textContent = event.currentTarget.classList.contains('active') ? 'Collapse answers' : 'Expand answers';
+	});
+	document.getElementById('printWorkbook').addEventListener('click', () => window.print());
+	document.getElementById('topButton').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+	scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+	const fixedHeader = document.querySelector('.fixed-header');
+	const menuToggle = document.getElementById('menuToggle');
+	menuToggle.addEventListener('click', () => {
+		const isOpen = fixedHeader.classList.toggle('menu-open');
+		menuToggle.setAttribute('aria-expanded', String(isOpen));
+		menuToggle.setAttribute('aria-label', isOpen ? 'Close workbook menu' : 'Open workbook menu');
+		menuToggle.textContent = isOpen ? '×' : '☰';
+	});
+	document.querySelectorAll('.nav-menus a').forEach(link => {
+		link.addEventListener('click', () => {
+			fixedHeader.classList.remove('menu-open');
+			menuToggle.setAttribute('aria-expanded', 'false');
+			menuToggle.setAttribute('aria-label', 'Open workbook menu');
+			menuToggle.textContent = '☰';
+		});
+	});
+
+	const searchInput = document.getElementById('questionSearch');
+	const searchEmpty = document.getElementById('searchEmpty');
+	const applyFilters = () => {
+		const query = searchInput.value.trim().toLowerCase();
+		const track = trackFilter.value;
+		const priority = priorityFilter.value;
+		const subject = subjectFilter.value;
+		let matches = 0;
+		cards.forEach(card => {
+			const trackMatch = track === 'all' || track === 'fullstack' || (track === 'mean' && card.dataset.mean === 'true') || (track === 'mern' && card.dataset.mern === 'true');
+			const matched = trackMatch && (priority === 'all' || card.dataset.priority === priority) && (subject === 'all' || card.dataset.subject === subject) && (!query || card.textContent.toLowerCase().includes(query));
+			card.classList.toggle('search-hidden', !matched);
+			if (matched) matches += 1;
+		});
+		sections.forEach(section => {
+			const visibleCards = section.querySelectorAll('.q-card:not(.search-hidden)').length;
+			const isIntro = !section.querySelector('.q-card');
+			section.classList.toggle('search-hidden', Boolean(query) && !visibleCards && !isIntro);
+		});
+		searchEmpty.classList.toggle('visible', Boolean(query || track !== 'all' || priority !== 'all' || subject !== 'all') && matches === 0);
+		filterCount.textContent = `${matches} question${matches === 1 ? '' : 's'} shown`;
+	};
+	searchInput.addEventListener('input', applyFilters);
+	[trackFilter, priorityFilter, subjectFilter].forEach(filter => filter.addEventListener('change', applyFilters));
+	applyFilters();
+
+	cards.forEach((card, index) => {
+		const title = card.querySelector('.q-title');
+		if (!title) return;
+		title.setAttribute('tabindex', '0');
+		title.setAttribute('role', 'button');
+		title.setAttribute('aria-expanded', 'true');
+		const toggleCard = () => {
+			const collapsed = card.classList.toggle('collapsed');
+			title.setAttribute('aria-expanded', String(!collapsed));
+		};
+		title.addEventListener('click', toggleCard);
+		title.addEventListener('keydown', event => {
+			if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleCard(); }
+		});
+		card.style.animationDelay = Math.min(index * 18, 260) + 'ms';
+	});
+})();
+</script>
+</body>
+</html>
